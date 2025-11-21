@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Brief | OPTILINE Agency</title>
+<meta name="description" content="Thank you. Please complete your project brief to begin.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/webp" href="/assets/imgs/fav.webp">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="manifest" href="/manifest.json">
+</head>
+<body>
+<div class="custom-cursor"></div>
+<header class="main-header" id="header">
+<a href="/" class="logo"><img src="/assets/imgs/optiline-logo.webp" alt="OPTILINE Logo"></a>
+<nav>
+<ul class="nav-links">
+<li><a href="/">Home</a></li>
+<li><a href="/services/">Services</a></li>
+<li><a href="/portfolio/">Portfolio</a></li>
+<li><a href="/pricing/">Pricing</a></li>
+<li><a href="/contact/">Contact</a></li>
+</ul>
+</nav>
+<div class="hamburger"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div></div>
+</header>
+<main>
+<section class="page-hero">
+<div class="container anim-group">
+<h1 class="subtle-glow">Payment Confirmed</h1>
+<p>Thank you for trusting OPTILINE. Please complete the final step to begin your project.</p>
+</div>
+</section>
+<section class="section" id="project-brief-section">
+<div class="container">
+<form class="project-brief-form anim-group" name="projectBrief" id="projectBriefForm" enctype="multipart/form-data">
+<div class="section-title" style="margin-bottom: 2rem; text-align: left;">
+<h2 style="font-size: 2.5rem; margin: 0;">Project Brief</h2>
+</div>
+<input type="hidden" id="marketerField" name="marketer">
+<input type="hidden" id="paypalTxField" name="paypal_tx_id">
+        
+<!-- Client Information Section -->
+<div class="form-group">
+<label for="fullName">Full Name *</label>
+<input type="text" id="fullName" name="fullName" required placeholder="Your full name...">
+</div>
+<div class="form-group">
+<label for="clientEmail">Email Address *</label>
+<input type="email" id="clientEmail" name="clientEmail" required placeholder="Your primary email address...">
+</div>
+<div class="form-group">
+<label for="phoneNumber">Phone Number</label>
+<input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Optional but helpful for quick communication">
+</div>
+<div class="form-group">
+<label for="companyName">Company Name</label>
+<input type="text" id="companyName" name="companyName" placeholder="Your company name (if applicable)">
+</div>
+        
+<!-- Project Details Section -->
+<div class="form-group">
+<label for="serviceType">Service Type *</label>
+<select id="serviceType" name="serviceType" required>
+<option value="">Select a service...</option>
+<option value="branding">Branding</option>
+<option value="video">Video Production</option>
+<option value="ui-ux">UI/UX Design</option>
+<option value="social-media">Social Media Marketing</option>
+</select>
+</div>
+<div class="form-group">
+<label for="packageType">Package Type *</label>
+<select id="packageType" name="packageType" required>
+<option value="">Select a package...</option>
+<option value="starter">Starter</option>
+<option value="growth">Growth</option>
+<option value="premium">Premium</option>
+</select>
+</div>
+<div class="form-group">
+<label for="projectDescription">Project Description & Vision *</label>
+<textarea id="projectDescription" name="projectDescription" placeholder="Please describe your project in detail, your vision, any specific ideas or requirements..." required></textarea>
+</div>
+        
+<!-- Existing Fields -->
+<div class="form-group">
+<label for="goals">What is the main goal of this project? *</label>
+<textarea id="goals" name="goals" placeholder="e.g., Launch a new brand, redesign our website, create a video ad..." required></textarea>
+</div>
+<div class="form-group">
+<label for="audience">Who is your target audience? *</label>
+<textarea id="audience" name="audience" placeholder="e.g., Age, interests, location, etc." required></textarea>
+</div>
+<div class="form-group">
+<label for="competitors">Who are your main competitors?</label>
+<input type="text" id="competitors" name="competitors" placeholder="e.g., competitor.com, anotherbrand.com">
+</div>
+<div class="form-group">
+<label for="links">Design Inspiration</label>
+<textarea id="links" name="links" placeholder="Links to websites, brands, or styles you like..."></textarea>
+</div>
+        
+<!-- File Upload Section -->
+<div class="form-group">
+<label>Reference Files</label>
+<div class="file-upload-wrapper">
+<div class="file-upload-input" onclick="document.getElementById('fileUpload').click()">
+<i class="fas fa-cloud-upload-alt"></i>
+<p>Click to upload files or drag & drop</p>
+<p class="file-info">Supported formats: ZIP, PDF, JPG, PNG (Max 50MB)</p>
+</div>
+<input type="file" id="fileUpload" name="referenceFiles" style="display: none;" multiple accept=".zip,.pdf,.jpg,.jpeg,.png">
+</div>
+</div>
+<div class="form-group">
+<label for="driveLink">Google Drive Link (for large files)</label>
+<input type="url" id="driveLink" name="driveLink" placeholder="https://drive.google.com/...">
+</div>
+        
+<!-- Review Instructions -->
+<div class="review-instructions">
+<h4><i class="fas fa-info-circle"></i> Review Process</h4>
+<p>After receiving the first version of your project, please send all your feedback at once for the final revision. This minimizes back-and-forth communication and saves time for both parties.</p>
+</div>
+        
+<div class="cf-turnstile" data-sitekey="0x4AAAAAACCMubvSyC3du453" data-callback="javascriptCallback"></div>
+<div style="text-align: center; margin-top: 2rem;">
+<button type="submit" class="cta-button" id="submitBriefButton">Submit Project & Begin</button>
+</div>
+</form>
+<div id="successMessage" class="success-animation" style="display: none;">
+<div class="success-icon">
+<i class="fas fa-check-circle"></i>
+</div>
+<div class="success-message">
+<h2 class="subtle-glow">Submission Received!</h2>
+<p>Thank you <span id="clientName"></span>. We have received your project details and will review them within 24 hours. We'll send you the first version for review soon.</p>
+<div style="margin-top: 2rem;">
+<a href="/" class="cta-button">Return to Homepage</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="main-footer">
+<div class="container footer-content">
+<div class="footer-about">
+<a href="/" class="logo"><img src="/assets/imgs/optiline-logo.webp" loading="lazy" alt="OPTILINE Logo"></a>
+<p>OPTILINE is a creative agency dedicated to building the brands of tomorrow. We partner with visionaries to create work that matters.</p>
+</div>
+<div class="footer-links">
+<h4>Explore</h4><ul><li><a href="/services/">Services</a></li><li><a href="/portfolio/">Portfolio</a></li><li><a href="/pricing/">Pricing</a></li></ul>
+</div>
+<div class="footer-links">
+<h4>Support</h4><ul><li><a href="/contact/">Contact Us</a></li><li><a href="/#process">Our Process</a></li><li><a href="/careers/">Careers</a></li></ul>
+</div>
+</div>
+<div class="copyright"><p>© 2025 OPTILINE. A New Era of Creativity.</p></div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/project-brief.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>
