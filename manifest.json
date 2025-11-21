@@ -1,0 +1,20 @@
+{
+  "name": "OPTILINE Agency",
+  "short_name": "OPTILINE",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0A1A",
+  "theme_color": "#0A0A1A",
+  "icons": [
+    {
+      "src": "/assets/imgs/fav.webp",
+      "sizes": "192x192",
+      "type": "image/webp"
+    },
+    {
+      "src": "/assets/imgs/fav.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
+    }
+  ]
+}

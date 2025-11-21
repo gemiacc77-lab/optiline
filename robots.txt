@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://optiline.online/sitemap.xml
+Disallow: /project-submit-a91z7p/

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Brief | OPTILINE Agency</title>
+<meta name="description" content="Thank you. Please complete your project brief to begin.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/webp" href="/assets/imgs/fav.webp">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="manifest" href="/manifest.json">  
+<style>
+.project-brief-form {
+max-width: 800px;
+margin: 0 auto;
+padding: 3rem 2rem;
+background: var(--card-bg);
+border: 1px solid var(--card-border-color);
+border-radius: 15px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+text-align: left;
+}
+.project-brief-form .form-group { margin-bottom: 1.5rem; }
+.project-brief-form .form-group label {
+display: block;
+margin-bottom: 0.5rem;
+color: var(--text-gray);
+font-weight: 500;
+font-size: 0.9rem;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+}
+.project-brief-form .form-group input,
+.project-brief-form .form-group textarea {
+width: 100%;
+padding: 15px;
+background: var(--secondary-dark);
+border: 1px solid var(--card-border-color);
+color: var(--text-light);
+border-radius: 8px;
+transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+font-family: var(--font-main);
+font-size: 1rem;
+}
+.project-brief-form .form-group input:focus,
+.project-brief-form .form-group textarea:focus {
+outline: none;
+border-color: var(--accent-purple);
+box-shadow: 0 0 0 3px rgba(164, 94, 255, 0.7);
+}
+.project-brief-form .form-group textarea {
+resize: vertical;
+min-height: 120px;
+}
+.cf-turnstile {
+margin: 1.5rem 0;
+display: flex;
+justify-content: center;
+}
+.success-animation {
+text-align: center;
+padding: 4rem 0;
+opacity: 0;
+transform: translateY(30px);
+}
+.success-icon {
+font-size: 4rem;
+color: var(--accent-light);
+margin-bottom: 2rem;
+display: inline-block;
+}
+.success-message h2 {
+font-size: 2.5rem;
+margin-bottom: 1.5rem;
+}
+.success-message p {
+font-size: 1.2rem;
+max-width: 600px;
+margin: 0 auto;
+color: var(--text-gray);
+line-height: 1.6;
+}
+</style>
+</head>
+<body>
+<div class="custom-cursor"></div>
+<header class="main-header" id="header">
+<a href="/" class="logo"><img src="/assets/imgs/optiline-logo.webp" alt="OPTILINE Logo"></a>
+<nav>
+<ul class="nav-links">
+<li><a href="/">Home</a></li>
+<li><a href="/services/">Services</a></li>
+<li><a href="/portfolio/">Portfolio</a></li>
+<li><a href="/pricing/">Pricing</a></li>
+<li><a href="/contact/">Contact</a></li>
+</ul>
+</nav>
+<div class="hamburger"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div></div>
+</header>
+<main>
+<section class="page-hero">
+<div class="container anim-group">
+<h1 class="subtle-glow">Payment Confirmed</h1>
+<p>Thank you for trusting OPTILINE. Please complete the final step to begin your project.</p>
+</div>
+</section>
+<section class="section" id="project-brief-section">
+<div class="container">
+<form class="project-brief-form anim-group" name="projectBrief" id="projectBriefForm">
+<div class="section-title" style="margin-bottom: 2rem; text-align: left;">
+<h2 style="font-size: 2.5rem; margin: 0;">Project Brief</h2>
+</div>
+<input type="hidden" id="marketerField" name="marketer">
+<input type="hidden" id="paypalTxField" name="paypal_tx_id">
+<div class="form-group">
+<label for="payerEmail">Your PayPal Email *</label>
+<input type="email" id="payerEmail" name="payerEmail" required placeholder="Email you used for payment...">
+</div>
+<div class="form-group">
+<label for="projectName">Project / Company Name *</label>
+<input type="text" id="projectName" name="projectName" required placeholder="What is your brand name?">
+</div>
+<div class="form-group">
+<label for="goals">What is the main goal of this project? *</label>
+<textarea id="goals" name="goals" placeholder="e.g., Launch a new brand, redesign our website, create a video ad..." required></textarea>
+</div>
+<div class="form-group">
+<label for="audience">Who is your target audience? *</label>
+<textarea id="audience" name="audience" placeholder="e.g., Age, interests, location, etc." required></textarea>
+</div>
+<div class="form-group">
+<label for="competitors">Who are your main competitors?</label>
+<input type="text" id="competitors" name="competitors" placeholder="e.g., competitor.com, anotherbrand.com">
+</div>
+<div class="form-group">
+<label for="links">Design Inspiration</label>
+<textarea id="links" name="links" placeholder="Links to websites, brands, or styles you like..."></textarea>
+</div>
+<div class="cf-turnstile" data-sitekey="0x4AAAAAACBL0RJ9c2nkncTU" data-callback="javascriptCallback"></div>
+<div style="text-align: center; margin-top: 2rem;">
+<button type="submit" class="cta-button" id="submitBriefButton">Submit Project & Begin</button>
+</div>
+</form>
+<div id="successMessage" class="success-animation" style="display: none;">
+<div class="success-icon">
+<i class="fas fa-check-circle"></i>
+</div>
+<div class="success-message">
+<h2 class="subtle-glow">Submission Received!</h2>
+<p>Thank you. Our team has your project details and will be in touch shortly to confirm the next steps.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="main-footer">
+<div class="container footer-content">
+<div class="footer-about">
+<a href="/" class="logo"><img src="/assets/imgs/optiline-logo.webp" loading="lazy" alt="OPTILINE Logo"></a>
+<p>OPTILINE is a creative agency dedicated to building the brands of tomorrow. We partner with visionaries to create work that matters.</p>
+</div>
+<div class="footer-links">
+<h4>Explore</h4><ul><li><a href="/services/">Services</a></li><li><a href="/portfolio/">Portfolio</a></li><li><a href="/pricing/">Pricing</a></li></ul>
+</div>
+<div class="footer-links">
+<h4>Support</h4><ul><li><a href="/contact/">Contact Us</a></li><li><a href="/#process">Our Process</a></li><li><a href="/careers/">Careers</a></li></ul>
+</div>
+</div>
+<div class="copyright"><p>© 2025 OPTILINE. A New Era of Creativity.</p></div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<script>
+function getStoredMarketer() {
+try {
+const cookieValue = document.cookie
+.split('; ')
+.find(row => row.startsWith('optiline_ref='))
+?.split('=')[1];
+if (cookieValue) {
+return decodeURIComponent(cookieValue);
+}
+return localStorage.getItem('optiline_marketer_ref');
+} catch(e) {
+return null;
+}
+}
+(function populateHiddenFields() {
+try {
+const marketerName = getStoredMarketer() || 'Direct';
+const marketerField = document.getElementById('marketerField');
+if (marketerField) {
+marketerField.value = marketerName;
+}
+const urlParams = new URLSearchParams(window.location.search);
+const txId = urlParams.get('tx') || urlParams.get('txn_id'); 
+const paypalTxField = document.getElementById('paypalTxField');
+if (paypalTxField && txId) {
+paypalTxField.value = txId;
+} else {
+paypalTxField.value = "TXN_ID_NOT_FOUND";
+}
+} catch (e) {
+console.warn('OPTILINE: Error populating hidden fields.', e);
+}
+})();
+function javascriptCallback(token) {
+console.log('Turnstile token received:', token);
+}
+function showSuccessAnimation() {
+const successElement = document.getElementById('successMessage');
+successElement.style.display = 'block';
+gsap.fromTo(successElement, 
+{ opacity: 0, y: 30 },
+{ 
+opacity: 1, 
+y: 0, 
+duration: 1, 
+ease: "power3.out" 
+}
+);
+gsap.fromTo('.success-icon', 
+{ scale: 0, rotation: -180 },
+{ 
+scale: 1, 
+rotation: 0, 
+duration: 1, 
+ease: "back.out(1.7)", 
+delay: 0.3 
+}
+);
+gsap.fromTo('.success-message h2', 
+{ opacity: 0, y: 20 },
+{ 
+opacity: 1, 
+y: 0, 
+duration: 0.8, 
+ease: "power2.out", 
+delay: 0.6 
+}
+);
+gsap.fromTo('.success-message p', 
+{ opacity: 0, y: 20 },
+{ 
+opacity: 1, 
+y: 0, 
+duration: 0.8, 
+ease: "power2.out", 
+delay: 0.8 
+}
+);
+}
+window.addEventListener('load', function() {
+const form = document.getElementById('projectBriefForm');
+if (form) {
+form.addEventListener('submit', async (e) => {
+e.preventDefault(); 
+const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]');
+if (!turnstileResponse || !turnstileResponse.value) {
+alert('Please complete the security verification.');
+return;
+}
+const submitButton = document.getElementById('submitBriefButton');
+submitButton.textContent = 'Submitting...';
+submitButton.disabled = true;
+const BRIEF_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzS8f3kh7xWMS8plFvxIstcM7g7k7HGF59OW-NQs6WGGiof38ReBIe2ZU1HvmJsNQ4Byg/exec";
+const formData = new FormData(form);
+const payload = new URLSearchParams(formData);
+try {
+const response = await fetch(BRIEF_WEBHOOK_URL, {
+method: 'POST',
+body: payload,
+mode: 'cors'
+});
+if (!response.ok) {
+throw new Error(`HTTP error! status: ${response.status}`);
+}
+const result = await response.json();
+if (result.status === 'ok') {
+form.style.display = 'none';
+showSuccessAnimation();
+} else {
+throw new Error(result.message || 'Unknown error from script.');
+}
+} catch (err) {
+console.error('OPTILINE Error:', err);
+alert('Error submitting brief. Please contact support. (Details: ' + err.message + ')');
+submitButton.textContent = 'Submit Project & Begin';
+submitButton.disabled = false;
+}
+});
+}
+});
+</script>
+<div id="cookie-banner" class="cookie-banner">
+    <div class="cookie-content">
+        <h3><i class="fas fa-user-shield"></i> Privacy Preference Center</h3>
+        <p>
+            We utilize cookies and essential technologies to engineer a seamless digital experience, optimize site performance, and enable core marketing functions. By clicking "Accept", you acknowledge our use of these technologies.
+        </p>
+        <div class="cookie-buttons">
+            <button id="accept-cookies">Accept All</button>
+            <button id="reject-cookies">Decline</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
