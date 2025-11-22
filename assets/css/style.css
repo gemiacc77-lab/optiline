@@ -1573,25 +1573,19 @@ grid-template-columns: 1fr;
     background: linear-gradient(45deg, var(--accent-purple), var(--accent-light));
     color: white;
     cursor: pointer;
-    width: 40px;  /* تم التصغير من 50px */
-    height: 40px; /* تم التصغير من 50px */
+    width: 40px;  /* تم التصغير */
+    height: 40px; /* تم التصغير */
     border-radius: 50%;
     font-size: 0.9rem; /* أيقونة أصغر */
-    box-shadow: 0 3px 10px rgba(138, 43, 226, 0.3); /* ظل أنعم */
+    box-shadow: 0 3px 10px rgba(138, 43, 226, 0.3); /* ظل ناعم */
     transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s;
     align-items: center;
     justify-content: center;
-    opacity: 0.7; /* شفافية أكثر ليكون هادئاً */
+    opacity: 0.7; /* شفافية ليكون هادئاً */
 }
 
 #scrollTopBtn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-3px); /* حركة ناعمة للأعلى */
     box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
     opacity: 1; /* ظهور كامل عند التحويم */
-}
-
-#scrollTopBtn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
-    opacity: 1;
 }
