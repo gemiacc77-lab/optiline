@@ -181,4 +181,24 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Scroll to Top Logic
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+    if (scrollTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.style.display = "flex"; // Use flex to center icon
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
 });
