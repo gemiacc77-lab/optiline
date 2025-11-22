@@ -32,7 +32,7 @@
 <main>
 <section class="page-hero">
 <div class="container anim-group">
-<h1 class="subtle-glow">Payment Confirmed</h1>
+<h1 class="subtle-glow">Start Your Growth Journey</h1>
 <p>Thank you for trusting OPTILINE. Please complete the final step to begin your project.</p>
 </div>
 </section>
@@ -45,7 +45,6 @@
 <input type="hidden" id="marketerField" name="marketer">
 <input type="hidden" id="paypalTxField" name="paypal_tx_id">
         
-<!-- Client Information Section -->
 <div class="form-group">
 <label for="fullName">Full Name *</label>
 <input type="text" id="fullName" name="fullName" required placeholder="Your full name...">
@@ -63,52 +62,50 @@
 <input type="text" id="companyName" name="companyName" placeholder="Your company name (if applicable)">
 </div>
         
-<!-- Project Details Section -->
 <div class="form-group">
 <label for="serviceType">Service Type *</label>
 <select id="serviceType" name="serviceType" required>
 <option value="">Select a service...</option>
-<option value="branding">Branding</option>
-<option value="video">Video Production</option>
-<option value="ui-ux">UI/UX Design</option>
-<option value="social-media">Social Media Marketing</option>
+<option value="branding">Mini Brand Identity (Brand Kit)</option>
+<option value="social-media">Social Media Management</option>
+<option value="ads">Ads Optimization & Strategy</option>
+<option value="bundle">Full Growth Bundle</option>
 </select>
 </div>
 <div class="form-group">
 <label for="packageType">Package Type *</label>
 <select id="packageType" name="packageType" required>
 <option value="">Select a package...</option>
-<option value="starter">Starter</option>
-<option value="growth">Growth</option>
-<option value="premium">Premium</option>
+<option value="essential">Essential ($497)</option>
+<option value="growth">Growth ($1,197/mo)</option>
+<option value="scale">Scale ($2,497/mo)</option>
+<option value="custom">Custom</option>
 </select>
 </div>
 <div class="form-group">
-<label for="projectDescription">Project Description & Vision *</label>
-<textarea id="projectDescription" name="projectDescription" placeholder="Please describe your project in detail, your vision, any specific ideas or requirements..." required></textarea>
+<label for="projectDescription">Project Description & Goals *</label>
+<textarea id="projectDescription" name="projectDescription" placeholder="Describe your project, current challenges, and what success looks like to you..." required></textarea>
 </div>
         
-<!-- Existing Fields -->
 <div class="form-group">
-<label for="goals">What is the main goal of this project? *</label>
-<textarea id="goals" name="goals" placeholder="e.g., Launch a new brand, redesign our website, create a video ad..." required></textarea>
+<label for="goals">Main Objective *</label>
+<textarea id="goals" name="goals" placeholder="e.g., Launch a new brand, Increase Instagram followers, Lower Ad CPA..." required></textarea>
 </div>
 <div class="form-group">
-<label for="audience">Who is your target audience? *</label>
-<textarea id="audience" name="audience" placeholder="e.g., Age, interests, location, etc." required></textarea>
+<label for="audience">Target Audience *</label>
+<textarea id="audience" name="audience" placeholder="e.g., Age, interests, location, pain points..." required></textarea>
 </div>
 <div class="form-group">
-<label for="competitors">Who are your main competitors?</label>
+<label for="competitors">Main Competitors</label>
 <input type="text" id="competitors" name="competitors" placeholder="e.g., competitor.com, anotherbrand.com">
 </div>
 <div class="form-group">
-<label for="links">Design Inspiration</label>
-<textarea id="links" name="links" placeholder="Links to websites, brands, or styles you like..."></textarea>
+<label for="links">Inspiration / Current Assets</label>
+<textarea id="links" name="links" placeholder="Links to your current website, social profiles, or brands you like..."></textarea>
 </div>
         
-<!-- File Upload Section -->
 <div class="form-group">
-<label>Reference Files</label>
+<label>Reference Files (Logos, Guidelines, etc.)</label>
 <div class="file-upload-wrapper">
 <div class="file-upload-input" onclick="document.getElementById('fileUpload').click()">
 <i class="fas fa-cloud-upload-alt"></i>
@@ -123,15 +120,9 @@
 <input type="url" id="driveLink" name="driveLink" placeholder="https://drive.google.com/...">
 </div>
         
-<!-- Review Instructions -->
-<div class="review-instructions">
-<h4><i class="fas fa-info-circle"></i> Review Process</h4>
-<p>After receiving the first version of your project, please send all your feedback at once for the final revision. This minimizes back-and-forth communication and saves time for both parties.</p>
-</div>
-        
 <div class="cf-turnstile" data-sitekey="0x4AAAAAACCMubvSyC3du453" data-callback="javascriptCallback"></div>
 <div style="text-align: center; margin-top: 2rem;">
-<button type="submit" class="cta-button" id="submitBriefButton">Submit Project & Begin</button>
+<button type="submit" class="cta-button" id="submitBriefButton">Submit & Launch Project</button>
 </div>
 </form>
 <div id="successMessage" class="success-animation" style="display: none;">
@@ -140,7 +131,7 @@
 </div>
 <div class="success-message">
 <h2 class="subtle-glow">Submission Received!</h2>
-<p>Thank you <span id="clientName"></span>. We have received your project details and will review them within 24 hours. We'll send you the first version for review soon.</p>
+<p>Thank you <span id="clientName"></span>. Our team has received your brief. We will review your details and contact you within 24 hours to kick off the growth process.</p>
 <div style="margin-top: 2rem;">
 <a href="/" class="cta-button">Return to Homepage</a>
 </div>
@@ -169,5 +160,18 @@
 <script src="/assets/js/main.js"></script>
 <script src="/assets/js/project-brief.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<div id="cookie-banner" class="cookie-banner">
+    <div class="cookie-content">
+        <h3><i class="fas fa-user-shield"></i> Privacy Preference Center</h3>
+        <p>
+            We utilize cookies and essential technologies to engineer a seamless digital experience, optimize site performance, and enable core marketing functions. By clicking "Accept", you acknowledge our use of these technologies.
+        </p>
+        <div class="cookie-buttons">
+            <button id="accept-cookies">Accept All</button>
+            <button id="reject-cookies">Decline</button>
+        </div>
+    </div>
+</div>
+<button id="scrollTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
 </body>
 </html>
