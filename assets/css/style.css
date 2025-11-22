@@ -1589,3 +1589,48 @@ grid-template-columns: 1fr;
     box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
     opacity: 1; /* ظهور كامل عند التحويم */
 }
+
+/* --- Comparison Table Styling --- */
+.comparison-table-wrapper {
+    overflow-x: auto;
+    margin-top: 4rem;
+    border: 1px solid var(--card-border-color);
+    border-radius: 15px;
+    background: var(--card-bg);
+    padding: 1rem;
+}
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+.comparison-table th, .comparison-table td {
+    padding: 1.2rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(138, 43, 226, 0.1);
+    color: var(--text-gray);
+}
+.comparison-table th {
+    text-transform: uppercase;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+.comparison-table tr:last-child td {
+    border-bottom: none;
+}
+.comparison-table .feature-name {
+    text-align: left;
+    color: var(--text-light);
+    font-weight: 600;
+}
+.comparison-table i.fa-check-circle {
+    color: var(--accent-light);
+    font-size: 1.2rem;
+}
+.comparison-table i.fa-times-circle {
+    color: #555;
+    opacity: 0.5;
+    font-size: 1.2rem;
+}
