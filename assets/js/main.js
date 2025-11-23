@@ -1,4 +1,7 @@
+// assets/js/main.js
+
 function handleMarketerTracking() {
+    // ... (نفس الكود السابق لنظام الإحالة) ...
     try {
         const urlParams = new URLSearchParams(window.location.search);
         const ref = urlParams.get('ref');
@@ -8,10 +11,13 @@ function handleMarketerTracking() {
             date.setTime(date.getTime() + (60 * 24 * 60 * 60 * 1000));
             const expires = "expires=" + date.toUTCString();
             document.cookie = "optiline_ref=" + encodeURIComponent(ref) + "; " + expires + "; path=/; samesite=lax";
+            console.log('OPTILINE TRACKING: Ref saved.', ref);
         }
     } catch(e) { console.warn('OPTILINE TRACKING: Error.', e); }
 }
+
 function initCookieConsent() {
+    // ... (نفس كود الكوكيز السابق) ...
     const banner = document.getElementById('cookie-banner');
     const acceptBtn = document.getElementById('accept-cookies');
     const rejectBtn = document.getElementById('reject-cookies');
@@ -36,40 +42,33 @@ function initCookieConsent() {
         banner.style.display = 'none';
     });
 }
+
 document.addEventListener('DOMContentLoaded', function() {
+    // هام: تسجيل ScrollToPlugin هنا ليعمل الكود الجديد
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-    const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        direction: 'vertical',
-        gestureDirection: 'vertical',
-        smooth: true,
-        mouseMultiplier: 1,
-        smoothTouch: false,
-        touchMultiplier: 2,
-    });
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => {
-        lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
+    
     handleMarketerTracking();
     initCookieConsent();
+
+    // --- بقية أكواد الهيدر والانميشن كما هي ---
     const header = document.getElementById('header');
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
+
     if (header) {
         window.addEventListener('scroll', () => {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             header.classList.toggle('scrolled', scrollTop > 50);
         });
     }
+
     if (hamburger && navLinks) {
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navLinks.classList.toggle('active');
             document.body.classList.toggle('no-scroll');
         });
+
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 if (navLinks.classList.contains('active')) {
@@ -80,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
     gsap.utils.toArray('.anim-group').forEach(group => {
         const anims = group.querySelectorAll('h1, h2, h3, h4, p, .cta-button, .logo-grid i, .service-card, .stat-card, .testimonial-card, .team-member, .faq-item, .process-step, .feature-card, .work-item, .blog-post-card, .view-all-work-btn, .service-image, .service-content > *, .service-features li, .industry-card, .filter-buttons, .portfolio-item, .pricing-card, .icon-item, .contact-wrapper > *, .step-item, .job-card, .no-openings, .payment-icons-wrapper, .hero-icons, .comparison-table-wrapper');
         if (anims.length > 0) {
@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+
     const statNumbers = document.querySelectorAll('.stat-number');
     if (statNumbers.length > 0) {
         statNumbers.forEach(el => {
@@ -113,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
     const filterButtons = document.querySelectorAll('.filter-btn');
     if (filterButtons.length > 0) {
         const portfolioItems = gsap.utils.toArray('.portfolio-item');
@@ -137,6 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
     const pricingCards = document.querySelectorAll('.pricing-card');
     if (pricingCards.length > 0) {
         pricingCards.forEach(card => {
@@ -160,6 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
             );
         });
     }
+
     const faqItems = document.querySelectorAll('.faq-item');
     if (faqItems.length > 0) {
         faqItems.forEach(item => {
@@ -182,13 +186,22 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // ==========================================
+    //  تعديل جوهري: Scroll to Top باستخدام GSAP
+    // ==========================================
     const scrollTopBtn = document.getElementById("scrollTopBtn");
+
     if (scrollTopBtn) {
+        // إظهار وإخفاء الزر عند التمرير
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 300) {
+                // استخدام flex لضمان توسيط الأيقونة
                 scrollTopBtn.style.display = "flex"; 
+                // انميشن بسيط لظهور الزر
                 gsap.to(scrollTopBtn, { opacity: 0.7, scale: 1, duration: 0.3 });
             } else {
+                // انميشن لاختفاء الزر قبل إزالته
                 gsap.to(scrollTopBtn, { 
                     opacity: 0, 
                     scale: 0.8, 
@@ -197,32 +210,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         });
+
+        // الحدث عند النقر: سكرول سريع وسلس للأعلى
         scrollTopBtn.addEventListener('click', () => {
             gsap.to(window, {
-                duration: 1,
-                scrollTo: 0,
-                ease: "power4.out",
-                autoKill: true
-            });
-        });
-    }
-    const cursor = document.querySelector('.custom-cursor');
-    if (cursor) {
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-        const hoverElements = document.querySelectorAll('a, button, .service-card, .project-card');
-        hoverElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                cursor.style.borderColor = 'var(--accent-purple)';
-                cursor.style.backgroundColor = 'rgba(138, 43, 226, 0.1)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursor.style.borderColor = 'var(--accent-light)';
-                cursor.style.backgroundColor = 'transparent';
+                duration: 1,       // المدة: ثانية واحدة (سريع ولكنه مرئي)
+                scrollTo: 0,       // الذهاب للموضع 0 (أعلى الصفحة)
+                ease: "power4.out", // نوع الحركة: يبدأ بسرعة كبيرة ويتباطأ في النهاية (ديناميكي جداً)
+                autoKill: true     // يسمح للمستخدم بإيقاف السكرول إذا لمس الشاشة أثناء الحركة
             });
         });
     }
