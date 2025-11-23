@@ -46,58 +46,79 @@ function initCookieConsent() {
 document.addEventListener('DOMContentLoaded', function() {
     // هام: تسجيل ScrollToPlugin هنا ليعمل الكود الجديد
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+    // --- LENIS SMOOTH SCROLL SETUP ---
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+    });
+
+    // ربط Lenis مع GSAP ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
+    // ---------------------------------
     
     handleMarketerTracking();
     initCookieConsent();
 
-    // --- بقية أكواد الهيدر والانميشن كما هي ---
-    const header = document.getElementById('header');
+    // Hamburger Menu
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
-
-    if (header) {
-        window.addEventListener('scroll', () => {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            header.classList.toggle('scrolled', scrollTop > 50);
-        });
-    }
-
     if (hamburger && navLinks) {
         hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
             navLinks.classList.toggle('active');
-            document.body.classList.toggle('no-scroll');
-        });
-
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (navLinks.classList.contains('active')) {
-                    hamburger.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    document.body.classList.remove('no-scroll');
-                }
-            });
+            hamburger.classList.toggle('toggle');
         });
     }
 
-    gsap.utils.toArray('.anim-group').forEach(group => {
-        const anims = group.querySelectorAll('h1, h2, h3, h4, p, .cta-button, .logo-grid i, .service-card, .stat-card, .testimonial-card, .team-member, .faq-item, .process-step, .feature-card, .work-item, .blog-post-card, .view-all-work-btn, .service-image, .service-content > *, .service-features li, .industry-card, .filter-buttons, .portfolio-item, .pricing-card, .icon-item, .contact-wrapper > *, .step-item, .job-card, .no-openings, .payment-icons-wrapper, .hero-icons, .comparison-table-wrapper');
-        if (anims.length > 0) {
-            gsap.from(anims, {
-                y: 50,
-                opacity: 0,
-                duration: 0.6,
-                ease: "power2.out",
-                stagger: 0.05,
-                scrollTrigger: {
-                    trigger: group,
-                    start: "top 85%",
-                    toggleActions: "play none none none"
-                }
-            });
+    // Header Scroll Effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
         }
     });
 
+    // GSAP Animations
+    // Hero Content Fade In
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+        const tl = gsap.timeline();
+        tl.to(".hero-content h1", { y: 0, opacity: 1, duration: 1, ease: "power3.out" })
+          .to(".hero-content p", { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, "-=0.5")
+          .to(".hero-content .cta-button", { y: 0, opacity: 1, duration: 0.8, ease: "back.out(1.7)" }, "-=0.5")
+          .to(".icon-item", { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }, "-=0.5");
+    }
+
+    // General Section Animations (Fade Up)
+    gsap.utils.toArray('.anim-group').forEach(group => {
+        gsap.from(group, {
+            scrollTrigger: {
+                trigger: group,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out"
+        });
+    });
+
+    // Number Counter Animation
     const statNumbers = document.querySelectorAll('.stat-number');
     if (statNumbers.length > 0) {
         statNumbers.forEach(el => {
@@ -115,109 +136,104 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    if (filterButtons.length > 0) {
-        const portfolioItems = gsap.utils.toArray('.portfolio-item');
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const filterValue = button.getAttribute('data-filter');
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+    // Portfolio Filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+    if (filterBtns.length > 0) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active to clicked
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
                 portfolioItems.forEach(item => {
-                    const itemCategory = item.dataset.category;
-                    const shouldShow = (filterValue === 'all' || itemCategory === filterValue);
-                    gsap.killTweensOf(item);
-                    gsap.to(item, {
-                        duration: 0.5,
-                        opacity: shouldShow ? 1 : 0,
-                        scale: shouldShow ? 1 : 0.95,
-                        display: shouldShow ? 'block' : 'none',
-                        ease: "power2.out",
-                        delay: 0.1
-                    });
-                });
-            });
-        });
-    }
-
-    const pricingCards = document.querySelectorAll('.pricing-card');
-    if (pricingCards.length > 0) {
-        pricingCards.forEach(card => {
-            card.addEventListener('click', () => {
-                pricingCards.forEach(c => c.classList.remove('selected'));
-                card.classList.add('selected');
-            });
-        });
-        const iconItems = document.querySelectorAll('.icon-item');
-        iconItems.forEach(item => {
-            const delay = parseFloat(item.getAttribute('data-delay')) || 0;
-            gsap.fromTo(item, 
-                { opacity: 0, y: 30 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.6,
-                    delay: 0.5 + delay,
-                    ease: "back.out(1.7)"
-                }
-            );
-        });
-    }
-
-    const faqItems = document.querySelectorAll('.faq-item');
-    if (faqItems.length > 0) {
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            const answer = item.querySelector('.faq-answer');
-            question.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                faqItems.forEach(i => {
-                    if (i !== item && i.classList.contains('active')) {
-                        i.classList.remove('active');
-                        gsap.to(i.querySelector('.faq-answer'), { maxHeight: 0, opacity: 0, duration: 0.2, ease: 'power1.inOut' });
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        gsap.to(item, { display: "grid", opacity: 1, duration: 0.5, ease: "power2.out" });
+                    } else {
+                        gsap.to(item, { opacity: 0, duration: 0.3, onComplete: () => item.style.display = "none" });
                     }
                 });
-                item.classList.toggle('active');
-                if (item.classList.contains('active')) {
-                    gsap.to(answer, { maxHeight: answer.scrollHeight + 'px', opacity: 1, duration: 0.3, ease: 'power2.out' });
+            });
+        });
+    }
+
+    // FAQ Accordion
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    if (faqQuestions.length > 0) {
+        faqQuestions.forEach(q => {
+            q.addEventListener('click', () => {
+                const answer = q.nextElementSibling;
+                const icon = q.querySelector('i');
+                
+                // Close others
+                faqQuestions.forEach(otherQ => {
+                    if (otherQ !== q) {
+                        gsap.to(otherQ.nextElementSibling, { height: 0, duration: 0.3 });
+                        otherQ.querySelector('i').style.transform = "rotate(0deg)";
+                    }
+                });
+
+                // Toggle current
+                if (answer.clientHeight === 0) {
+                    gsap.to(answer, { height: "auto", duration: 0.3 });
+                    icon.style.transform = "rotate(180deg)";
                 } else {
-                    gsap.to(answer, { maxHeight: 0, opacity: 0, duration: 0.2, ease: 'power1.inOut' });
+                    gsap.to(answer, { height: 0, duration: 0.3 });
+                    icon.style.transform = "rotate(0deg)";
                 }
             });
         });
     }
 
-    // ==========================================
-    //  تعديل جوهري: Scroll to Top باستخدام GSAP
-    // ==========================================
+    // Scroll to Top Button Logic
     const scrollTopBtn = document.getElementById("scrollTopBtn");
 
     if (scrollTopBtn) {
-        // إظهار وإخفاء الزر عند التمرير
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                // استخدام flex لضمان توسيط الأيقونة
-                scrollTopBtn.style.display = "flex"; 
-                // انميشن بسيط لظهور الزر
-                gsap.to(scrollTopBtn, { opacity: 0.7, scale: 1, duration: 0.3 });
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollTopBtn.style.display = "flex"; // Show button
             } else {
-                // انميشن لاختفاء الزر قبل إزالته
-                gsap.to(scrollTopBtn, { 
-                    opacity: 0, 
-                    scale: 0.8, 
-                    duration: 0.3, 
-                    onComplete: () => { scrollTopBtn.style.display = "none"; }
+                scrollTopBtn.style.display = "none"; // Hide button
+            }
+        };
+
+        scrollTopBtn.addEventListener("click", function() {
+            // Smooth scroll to top using Lenis if available, else native
+            if (typeof lenis !== 'undefined') {
+                lenis.scrollTo(0);
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
                 });
             }
         });
+    }
+    
+    // Custom Cursor Logic
+    const cursor = document.querySelector('.custom-cursor');
+    if (cursor) {
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
 
-        // الحدث عند النقر: سكرول سريع وسلس للأعلى
-        scrollTopBtn.addEventListener('click', () => {
-            gsap.to(window, {
-                duration: 1,       // المدة: ثانية واحدة (سريع ولكنه مرئي)
-                scrollTo: 0,       // الذهاب للموضع 0 (أعلى الصفحة)
-                ease: "power4.out", // نوع الحركة: يبدأ بسرعة كبيرة ويتباطأ في النهاية (ديناميكي جداً)
-                autoKill: true     // يسمح للمستخدم بإيقاف السكرول إذا لمس الشاشة أثناء الحركة
+        // Hover effect on links and buttons
+        const hoverElements = document.querySelectorAll('a, button, .service-card, .project-card');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursor.style.borderColor = 'var(--accent-purple)';
+                cursor.style.backgroundColor = 'rgba(138, 43, 226, 0.1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursor.style.borderColor = 'var(--accent-light)';
+                cursor.style.backgroundColor = 'transparent';
             });
         });
     }
