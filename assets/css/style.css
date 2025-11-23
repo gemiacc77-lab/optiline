@@ -37,6 +37,12 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* --- إضافة كود تصحيح أبعاد الصور --- */
+img {
+    max-width: 100%;
+    height: auto; /* هذا السطر يمنع تشوه الصور ويحافظ على التناسب */
+}
+
 /* إصلاح مشكلة ميلان الأيقونات نهائياً */
 i.fas, i.fab, i.far {
     font-style: normal !important;
@@ -1844,4 +1850,6 @@ a, button, .filter-btn, .portfolio-item, .pricing-card, .faq-question, .hamburge
     color: #555;
     opacity: 0.5;
     font-size: 1.2rem;
+}
+
 }
