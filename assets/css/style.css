@@ -4,7 +4,8 @@
     --accent-purple: #8A2BE2;
     --accent-light: #A45EFF;
     --text-light: #F0F0F8;
-    --text-gray: #B0B0C0;
+    /* تم تفتيح اللون الرمادي ليجتاز اختبار التباين (Accessibility) */
+    --text-gray: #C0C0D0; 
     --glow-color: rgba(164, 94, 255, 0.5);
     --card-bg: rgba(18, 8, 47, 0.7);
     --card-border-color: rgba(138, 43, 226, 0.25);
@@ -36,7 +37,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Fix for Italic Icons (FontAwesome) */
+/* إصلاح مشكلة ميلان الأيقونات نهائياً */
 i.fas, i.fab, i.far {
     font-style: normal !important;
 }
@@ -55,11 +56,11 @@ h1, h2, h3, h4 {
     margin: 0 auto; 
 }
 
-/* Performance Optimization: content-visibility */
+/* تحسين الأداء: تأخير رسم العناصر خارج الشاشة */
 .section { 
     padding: 100px 0; 
-    content-visibility: auto; /* Improves rendering performance */
-    contain-intrinsic-size: 1px 1000px; /* Estimate section height to prevent scrollbar jumping */
+    content-visibility: auto; 
+    contain-intrinsic-size: 1px 1000px; 
 }
 
 .section-dark { 
@@ -324,7 +325,7 @@ a, button, .filter-btn, .portfolio-item, .pricing-card, .faq-question, .hamburge
 }
 
 .logo-grid i { 
-    font-style: normal; /* Enforce normal style */
+    font-style: normal; 
     font-size: 3rem; 
     color: var(--text-gray); 
     transition: color var(--transition-fast), transform var(--transition-fast); 
@@ -1773,31 +1774,31 @@ a, button, .filter-btn, .portfolio-item, .pricing-card, .faq-question, .hamburge
 
 /* Scroll to Top Button - Smaller & Minimal */
 #scrollTopBtn {
-    display: none; /* hidden by default */
+    display: none; /* مخفي افتراضياً */
     position: fixed;
-    bottom: 20px; /* small distance from bottom */
-    right: 20px;  /* small distance from right */
+    bottom: 20px; /* مسافة أقل من الأسفل */
+    right: 20px;  /* مسافة أقل من اليمين */
     z-index: 9999;
     border: none;
     outline: none;
     background: linear-gradient(45deg, var(--accent-purple), var(--accent-light));
     color: white;
     cursor: pointer;
-    width: 40px;  /* reduced size */
-    height: 40px; /* reduced size */
+    width: 40px;  /* تم التصغير من 50px */
+    height: 40px; /* تم التصغير من 50px */
     border-radius: 50%;
-    font-size: 0.9rem; /* smaller icon */
-    box-shadow: 0 3px 10px rgba(138, 43, 226, 0.3); /* softer shadow */
+    font-size: 0.9rem; /* أيقونة أصغر */
+    box-shadow: 0 3px 10px rgba(138, 43, 226, 0.3); /* ظل أنعم */
     transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s;
     align-items: center;
     justify-content: center;
-    opacity: 0.7; /* more transparency for subtlety */
+    opacity: 0.7; /* شفافية أكثر ليكون هادئاً */
 }
 
 #scrollTopBtn:hover {
-    transform: translateY(-3px); /* gentle lift on hover */
+    transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
-    opacity: 1; /* full opacity on hover */
+    opacity: 1; /* ظهور كامل عند التحويم */
 }
 
 /* --- Comparison Table Styling --- */
