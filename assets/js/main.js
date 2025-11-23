@@ -1,4 +1,7 @@
+// assets/js/main.js
+
 function handleMarketerTracking() {
+    // ... (نفس الكود السابق لنظام الإحالة) ...
     try {
         const urlParams = new URLSearchParams(window.location.search);
         const ref = urlParams.get('ref');
@@ -10,12 +13,11 @@ function handleMarketerTracking() {
             document.cookie = "optiline_ref=" + encodeURIComponent(ref) + "; " + expires + "; path=/; samesite=lax";
             console.log('OPTILINE TRACKING: Ref saved.', ref);
         }
-    } catch(e) { 
-        console.warn('OPTILINE TRACKING: Error.', e); 
-    }
+    } catch(e) { console.warn('OPTILINE TRACKING: Error.', e); }
 }
 
 function initCookieConsent() {
+    // ... (نفس كود الكوكيز السابق) ...
     const banner = document.getElementById('cookie-banner');
     const acceptBtn = document.getElementById('accept-cookies');
     const rejectBtn = document.getElementById('reject-cookies');
@@ -42,10 +44,13 @@ function initCookieConsent() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    gsap.registerPlugin(ScrollTrigger);
+    // هام: تسجيل ScrollToPlugin هنا ليعمل الكود الجديد
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    
     handleMarketerTracking();
     initCookieConsent();
 
+    // --- بقية أكواد الهيدر والانميشن كما هي ---
     const header = document.getElementById('header');
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
@@ -76,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     gsap.utils.toArray('.anim-group').forEach(group => {
-        const anims = group.querySelectorAll('h1, h2, h3, h4, p, .cta-button, .logo-grid i, .service-card, .stat-card, .testimonial-card, .team-member, .faq-item, .process-step, .feature-card, .work-item, .blog-post-card, .view-all-work-btn, .service-image, .service-content > *, .service-features li, .industry-card, .filter-buttons, .portfolio-item, .pricing-card, .icon-item, .contact-wrapper > *, .step-item, .job-card, .no-openings');
+        const anims = group.querySelectorAll('h1, h2, h3, h4, p, .cta-button, .logo-grid i, .service-card, .stat-card, .testimonial-card, .team-member, .faq-item, .process-step, .feature-card, .work-item, .blog-post-card, .view-all-work-btn, .service-image, .service-content > *, .service-features li, .industry-card, .filter-buttons, .portfolio-item, .pricing-card, .icon-item, .contact-wrapper > *, .step-item, .job-card, .no-openings, .payment-icons-wrapper, .hero-icons, .comparison-table-wrapper');
         if (anims.length > 0) {
             gsap.from(anims, {
                 y: 50,
@@ -182,22 +187,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Scroll to Top Logic
+    // ==========================================
+    //  تعديل جوهري: Scroll to Top باستخدام GSAP
+    // ==========================================
     const scrollTopBtn = document.getElementById("scrollTopBtn");
 
     if (scrollTopBtn) {
+        // إظهار وإخفاء الزر عند التمرير
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 300) {
-                scrollTopBtn.style.display = "flex"; // Use flex to center icon
+                // استخدام flex لضمان توسيط الأيقونة
+                scrollTopBtn.style.display = "flex"; 
+                // انميشن بسيط لظهور الزر
+                gsap.to(scrollTopBtn, { opacity: 0.7, scale: 1, duration: 0.3 });
             } else {
-                scrollTopBtn.style.display = "none";
+                // انميشن لاختفاء الزر قبل إزالته
+                gsap.to(scrollTopBtn, { 
+                    opacity: 0, 
+                    scale: 0.8, 
+                    duration: 0.3, 
+                    onComplete: () => { scrollTopBtn.style.display = "none"; }
+                });
             }
         });
 
+        // الحدث عند النقر: سكرول سريع وسلس للأعلى
         scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+            gsap.to(window, {
+                duration: 1,       // المدة: ثانية واحدة (سريع ولكنه مرئي)
+                scrollTo: 0,       // الذهاب للموضع 0 (أعلى الصفحة)
+                ease: "power4.out", // نوع الحركة: يبدأ بسرعة كبيرة ويتباطأ في النهاية (ديناميكي جداً)
+                autoKill: true     // يسمح للمستخدم بإيقاف السكرول إذا لمس الشاشة أثناء الحركة
             });
         });
     }
