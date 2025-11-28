@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | OPTILINE Agency</title>
+<meta name="description" content="Get in touch with OPTILINE to start your next project. Contact us for a free consultation on branding, design, and video production services.">
+<meta name="referrer" content="no-referrer-when-downgrade">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="canonical" href="https://optiline.online/contact/">
+<link rel="icon" type="image/webp" href="/assets/imgs/fav.webp">
+<meta property="og:url" content="https://optiline.online/contact/">
+<meta property="og:title" content="Contact Us | OPTILINE Agency">
+<meta property="og:description" content="Ready to start your next project? We'd love to hear from you.">
+<meta property="og:image" content="/assets/imgs/optiline-logo.webp">
+<meta property="twitter:url" content="https://optiline.online/contact/">
+<meta property="twitter:title" content="Contact Us | OPTILINE Agency">
+<meta property="twitter:description" content="Ready to start your next project? We'd love to hear from you.">
+<meta property="twitter:image" content="/assets/imgs/optiline-logo.webp">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<style>
+.form-group.hidden { display: none; }
+.countdown-timer { color: var(--accent-light); font-weight: bold; margin-top: 10px; text-align: center; display: none; }
+.cf-turnstile { margin-bottom: 20px; }
+</style>
+<link rel="manifest" href="/manifest.json">  
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contact OPTILINE",
+  "description": "Get in touch with OPTILINE for digital growth services.",
+  "url": "https://optiline.online/contact/",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "OPTILINE",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "email": "hello@optiline.online",
+      "availableLanguage": ["English", "Arabic"]
+    }
+  }
+}
+</script>
+</head>
+<body>
+<div class="custom-cursor"></div>
+<header class="main-header" id="header">
+<a href="/" class="logo"><img src="/assets/imgs/optiline-logo.webp" alt="OPTILINE Logo"></a>
+<nav>
+<ul class="nav-links">
+<li><a href="/">Home</a></li>
+<li><a href="/services/">Services</a></li>
+<li><a href="/portfolio/">Portfolio</a></li>
+<li><a href="/pricing/">Pricing</a></li>
+<li><a href="/contact/" class="active">Contact</a></li>
+</ul>
+</nav>
+<div class="hamburger"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div></div>
+</header>
+<main>
+<section class="page-hero">
+<div class="container anim-group">
+<h1 class="subtle-glow">CONNECT WITH THE COLLECTIVE</h1>
+<p>This is our central hub. For general inquiries, questions, or to learn more about our process, our team is ready to respond.</p>
+</div>
+</section>
+<section class="section" id="contact">
+<div class="container">
+<div class="contact-wrapper anim-group">
+<form class="contact-form" name="contact" method="POST" id="contact-form">
+<h2>Project Inquiry</h2>
+<div class="form-group"><label for="name">Full Name</label><input type="text" id="name" name="name" required></div>
+<div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" required></div>
+<div class="form-group">
+<label for="telegram">Telegram</label>
+<input type="text" id="telegram" name="telegram" placeholder="@username or +1234567890" required pattern="^(@[a-zA-Z0-9_]+|\+[0-9]+)$" title="Please enter a valid Telegram username starting with @ or phone number starting with +">
+</div>
+<div class="form-group">
+<label for="message">How can we help?</label>
+<textarea id="message" name="message" required placeholder="Tell us what's on your mind or what you'd like to discuss..."></textarea>
+</div>
+<div style="display:none;" aria-hidden="true">
+<label>Don't fill this out if you're human:</label>
+<input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+</div>
+<div class="cf-turnstile" data-sitekey="0x4AAAAAACCMwmqRs6BGL4B2" data-theme="dark"></div>
+<div class="form-submit-container">
+<button type="submit" class="cta-button" id="submit-button">Submit Inquiry</button>
+<div id="countdown-timer" class="countdown-timer">
+You can submit another inquiry in: <span id="countdown-display">120</span> seconds
+</div>
+<div class="form-messages">
+<div id="form-success" style="display: none; color: #39D98A; text-align: center; margin-top: 15px; padding: 15px; background: transparent; border: 1px solid #39D98A; border-radius: 5px; font-weight: bold;">Your message has been sent successfully. We will contact you shortly.</div>
+<div id="form-error" style="display: none; color: #ff6b6b; text-align: center; margin-top: 15px; padding: 15px; background: transparent; border: 1px solid #ff6b6b; border-radius: 5px;">Oops! Something went wrong. Please try again.</div>
+</div>
+</div>
+</form>
+<div class="contact-info">
+<h3>Headquarters & Contact</h3>
+<p style="color: var(--text-gray); margin-bottom: 2rem;">Feel free to reach out via email, phone, or follow us on our social channels.</p>
+<div class="info-item"><i class="fas fa-map-marker-alt info-icon"></i><div><strong>Strategy Hub</strong><br>London, New York, and Remote Teams</div></div>
+<div class="info-item"><i class="fas fa-envelope info-icon"></i><div><strong>Email Us</strong><br>hello@optiline.online</div></div>
+<div class="info-item"><i class="fas fa-phone info-icon"></i><div><strong>Project Line</strong><br>(555) 123-4567</div></div>
+<div class="social-icons">
+<a href="https://twitter.com/optiline" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+<a href="https://instagram.com/optiline" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+<a href="https://linkedin.com/company/optiline" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-dark" id="next-steps">
+<div class="container">
+<div class="section-title anim-group">
+<h2>Our Onboarding Process</h2>
+<p>Our process is designed for seamless, collaborative engagement with our clientele.</p>
+</div>
+<div class="next-steps-timeline anim-group">
+<div class="step-item">
+<div class="step-number">1</div>
+<div class="step-content">
+<h4>Inquiry Review</h4>
+<p>Once you submit the form, our team reviews your message to fully understand your questions and goals.</p>
+</div>
+</div>
+<div class="step-item">
+<div class="step-number">2</div>
+<div class="step-content">
+<h4>Team Connection</h4>
+<p>We identify the best person in our collective to provide you with a comprehensive answer.</p>
+</div>
+</div>
+<div class="step-item">
+<div class="step-number">3</div>
+<div class="step-content">
+<h4>Guidance & Next Steps</h4>
+<p>We'll provide the information you need and, if applicable, discuss potential next steps for collaboration.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="main-footer">
+<div class="container footer-content">
+<div class="footer-about">
+<a href="/" class="logo"><img src="/assets/imgs/optiline-logo.webp" loading="lazy" alt="OPTILINE Logo"></a>
+<p>OPTILINE is a creative agency dedicated to building the brands of tomorrow. We partner with visionaries to create work that matters.</p>
+</div>
+<div class="footer-links">
+<h4>Explore</h4><ul><li><a href="/">Home</a></li><li><a href="/services/">Services</a></li><li><a href="/portfolio/">Portfolio</a></li></ul>
+</div>
+<div class="footer-links">
+<h4>Support</h4><ul><li><a href="/pricing/">Pricing</a></li><li><a href="/#process">Our Process</a></li><li><a href="/careers/">Careers</a></li></ul>
+</div>
+</div>
+<div class="copyright"><p>© 2025 OPTILINE. A New Era of Creativity.</p></div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>    
+<script src="/assets/js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const CONTACT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxfuiy21_nqqRs_8fGM4J4X_cxDavoz5n52o6GymuRgCUzwd3oMa7BLF1xbTnONkjFg/exec";
+const pageLoadTime = new Date().getTime();
+const form = document.getElementById('contact-form');
+const submitButton = document.getElementById('submit-button');
+const successMessage = document.getElementById('form-success');
+const errorMessage = document.getElementById('form-error');
+const countdownTimer = document.getElementById('countdown-timer');
+const countdownDisplay = document.getElementById('countdown-display');
+let countdownInterval = null;
+const COUNTDOWN_DURATION = 120; 
+function startCountdown() {
+let timeLeft = COUNTDOWN_DURATION;
+countdownTimer.style.display = 'block';
+countdownDisplay.textContent = timeLeft;
+countdownInterval = setInterval(() => {
+timeLeft--;
+countdownDisplay.textContent = timeLeft;
+if (timeLeft <= 0) {
+clearInterval(countdownInterval);
+countdownTimer.style.display = 'none';
+submitButton.disabled = false;
+submitButton.style.display = 'block';
+submitButton.textContent = 'Submit Inquiry';
+}
+}, 1000);
+}
+if (form) {
+form.addEventListener('submit', async (e) => {
+e.preventDefault(); 
+const name = document.getElementById('name').value.trim();
+successMessage.style.display = 'none';
+errorMessage.style.display = 'none';
+submitButton.textContent = 'Submitting...';
+submitButton.disabled = true;
+const formData = new FormData(form);
+const timeToSubmit = new Date().getTime() - pageLoadTime;
+formData.append('timeToSubmit', timeToSubmit);
+try {
+const response = await fetch(CONTACT_WEBHOOK_URL, {
+method: 'POST',
+body: formData, 
+mode: 'cors' 
+});
+if (!response.ok) {
+let errorMsg = `HTTP error! status: ${response.status}`;
+try {
+const errResult = await response.json();
+if(errResult.message) errorMsg = errResult.message;
+} catch (jsonErr) { }
+throw new Error(errorMsg);
+}
+const result = await response.json();
+if (result.status === 'ok') {
+form.reset(); 
+submitButton.style.display = 'none'; 
+successMessage.textContent = `Thank you, ${name}. Your message has been sent successfully. We will contact you shortly.`;
+successMessage.style.display = 'block';
+startCountdown();
+} else {
+throw new Error(result.message || 'Unknown error from script.');
+}
+} catch (err) {
+console.error('Contact Form Error:', err);
+errorMessage.textContent = err.message; 
+errorMessage.style.display = 'block';
+submitButton.style.display = 'none';
+setTimeout(() => {
+submitButton.textContent = 'Submit Inquiry';
+submitButton.disabled = false;
+submitButton.style.display = 'block';
+errorMessage.style.display = 'none'; 
+}, 5000);
+try {
+turnstile.reset();
+} catch (resetErr) {
+console.error('Failed to reset turnstile:', resetErr);
+}
+}
+});
+}
+});
+</script>
+<div id="cookie-banner" class="cookie-banner">
+    <div class="cookie-content">
+        <h3><i class="fas fa-user-shield"></i> Privacy Preference Center</h3>
+        <p>
+            We utilize cookies and essential technologies to engineer a seamless digital experience, optimize site performance, and enable core marketing functions. By clicking "Accept", you acknowledge our use of these technologies.
+        </p>
+        <div class="cookie-buttons">
+            <button id="accept-cookies">Accept All</button>
+            <button id="reject-cookies">Decline</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
