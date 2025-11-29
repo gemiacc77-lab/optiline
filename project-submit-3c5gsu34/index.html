@@ -17,7 +17,6 @@ body {
     overflow-x: hidden;
 }
 
-/* لإصلاح مشكلة الكلمات الطويلة في شاشة الشكر */
 .thank-you {
     word-break: break-word;
     white-space: normal;
@@ -25,7 +24,6 @@ body {
     padding: 20px;
 }
 
-/* تحسين شكل الصفحات على الشاشات الصغيرة */
 @media (max-width: 600px) {
     .container, form {
         width: 100% !important;
@@ -33,14 +31,14 @@ body {
     }
 
     input, select, textarea, button {
-        font-size: 16px !important; /* حتى لا يظهر تكبير تلقائي على الجوال */
+        font-size: 16px !important;
     }
 
     h1, h2, h3 {
         text-align: center;
     }
-}  
-/* --- CSS Variables --- */
+}
+
 :root {
   --primary-bg: #0a0a0f;
   --card-bg: rgba(20, 20, 30, 0.8);
@@ -55,7 +53,6 @@ body {
   --font-body: 'Inter', sans-serif;
 }
 
-/* --- Global Animations --- */
 @keyframes shimmer {
   0% { background-position: -200px 0; }
   100% { background-position: 200px 0; }
@@ -76,7 +73,6 @@ body {
   50% { box-shadow: 0 0 20px rgba(138, 43, 226, 0.6); }
 }
 
-/* --- General Form Styles --- */
 .project-brief-form {
   max-width: 950px;
   margin: 0 auto;
@@ -107,7 +103,6 @@ body {
   transform: scaleX(1);
 }
 
-/* --- Enhanced Progress Steps --- */
 .progress-indicator {
   display: flex;
   justify-content: space-between;
@@ -206,7 +201,6 @@ body {
   box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
 }
 
-/* --- Enhanced Sections Animation --- */
 .form-section {
   display: none;
   margin-bottom: 2rem;
@@ -238,7 +232,6 @@ body {
   }
 }
 
-/* --- Enhanced Typography & Inputs --- */
 .form-section-title {
   color: var(--accent-light);
   font-family: var(--font-heading);
@@ -352,7 +345,6 @@ body {
   flex: 1;
 }
 
-/* --- Enhanced File Upload Styling --- */
 .file-upload-wrapper {
   border: 3px dashed var(--card-border-color);
   padding: 2.5rem 1.5rem;
@@ -568,7 +560,6 @@ body {
   box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
 }
 
-/* --- Enhanced Buttons --- */
 .form-navigation {
   display: flex;
   justify-content: space-between;
@@ -705,7 +696,6 @@ body {
   font-size: 1.3rem;
 }
 
-/* --- Enhanced Success Message --- */
 .success-animation {
   text-align: center;
   padding: 5rem 2rem;
@@ -821,7 +811,6 @@ body {
   100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(168, 85, 247, 0)); }
 }
 
-/* --- Form Validation Styles --- */
 .form-group.error input,
 .form-group.error textarea,
 .form-group.error select {
@@ -860,7 +849,6 @@ body {
   color: var(--success-color);
 }
 
-/* --- Section Transition Effects --- */
 .section-transition-enter {
   animation: slideInFromRight 0.4s forwards;
 }
@@ -869,7 +857,77 @@ body {
   animation: slideInFromLeft 0.4s forwards;
 }
 
-/* --- Enhanced Mobile Responsive Styles --- */
+.project-brief-form .form-group select option {
+  background: #2a2a3a;
+  color: white;
+  padding: 10px;
+}
+
+.project-brief-form .form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+}
+
+.form-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 15, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.form-loading.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(138, 43, 226, 0.3);
+  border-top: 4px solid var(--accent-purple);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.project-brief-form,
+.form-section,
+.progress-step,
+.form-group input,
+.form-group textarea {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.form-section.active {
+  animation-duration: 0.4s;
+}
+
+.progress-step {
+  transition-duration: 0.3s;
+}
+
+.form-group input,
+.form-group textarea {
+  transition-duration: 0.3s;
+}
+
 @media (max-width: 768px) {
   .container {
     width: 95%;
@@ -923,10 +981,14 @@ body {
   
   .form-section-title {
     font-size: 1.4rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   .form-group label {
     font-size: 0.95rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   p, label, .field-hint, h1, h2, h3, .form-section-title {
@@ -934,6 +996,7 @@ body {
     word-wrap: break-word;
     hyphens: auto;
     max-width: 100%;
+    word-break: normal;
   }
   
   .file-preview-item {
@@ -973,6 +1036,8 @@ body {
     font-size: 2rem;
     line-height: 1.2;
     padding: 0 1rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   .success-icon {
@@ -982,6 +1047,8 @@ body {
   .success-message p {
     font-size: 1.1rem;
     padding: 0 1rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   .btn-submit {
@@ -1011,6 +1078,8 @@ body {
   
   .form-section-title {
     font-size: 1.2rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   .form-navigation {
@@ -1028,6 +1097,8 @@ body {
   .success-message h2 {
     font-size: 1.7rem;
     line-height: 1.2;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   .success-icon {
@@ -1037,6 +1108,8 @@ body {
   .success-message p {
     font-size: 1rem;
     line-height: 1.5;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   .success-animation .cta-button {
@@ -1047,82 +1120,20 @@ body {
   }
 }
 
-/* --- Loading Animation --- */
-.form-loading {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(10, 10, 15, 0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-
-.form-loading.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.loading-spinner {
-  width: 60px;
-  height: 60px;
-  border: 4px solid rgba(138, 43, 226, 0.3);
-  border-top: 4px solid var(--accent-purple);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-/* --- Custom Scrollbar --- */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--accent-purple);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-light);
-}
-
-/* --- Performance Optimizations --- */
-* {
-  box-sizing: border-box;
-}
-
-.project-brief-form,
-.form-section,
-.progress-step,
 .form-group input,
-.form-group textarea {
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-  perspective: 1000px;
+.form-group textarea,
+.form-group select {
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
-.form-section.active {
-  animation-duration: 0.4s;
-}
-
-.progress-step {
-  transition-duration: 0.3s;
-}
-
-.form-group input,
-.form-group textarea {
-  transition-duration: 0.3s;
+.success-message h2,
+.success-message p,
+.form-section-title,
+.form-group label {
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: none;
 }
 </style>
 </head>
@@ -1531,7 +1542,6 @@ body {
 <script src="/assets/js/main.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
-// --- 1. Populate Hidden Fields ---
 (function populateHiddenFields() {
     try {
         const urlParams = new URLSearchParams(window.location.search);
@@ -1549,7 +1559,6 @@ body {
     }
 })();
 
-// --- 2. Enhanced Main Logic ---
 document.addEventListener('DOMContentLoaded', function() {
     const formSections = document.querySelectorAll('.form-section');
     const progressSteps = document.querySelectorAll('.progress-step');
