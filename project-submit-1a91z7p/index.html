@@ -17,7 +17,6 @@ body {
     overflow-x: hidden;
 }
 
-/* لإصلاح مشكلة الكلمات الطويلة في شاشة الشكر */
 .thank-you {
     word-break: break-word;
     white-space: normal;
@@ -25,7 +24,6 @@ body {
     padding: 20px;
 }
 
-/* تحسين شكل الصفحات على الشاشات الصغيرة */
 @media (max-width: 600px) {
     .container, form {
         width: 100% !important;
@@ -33,14 +31,14 @@ body {
     }
 
     input, select, textarea, button {
-        font-size: 16px !important; /* حتى لا يظهر تكبير تلقائي على الجوال */
+        font-size: 16px !important;
     }
 
     h1, h2, h3 {
         text-align: center;
     }
-}  
-/* --- CSS Variables --- */
+}
+
 :root {
   --primary-bg: #0a0a0f;
   --card-bg: rgba(20, 20, 30, 0.8);
@@ -55,7 +53,6 @@ body {
   --font-body: 'Inter', sans-serif;
 }
 
-/* --- Global Animations --- */
 @keyframes shimmer {
   0% { background-position: -200px 0; }
   100% { background-position: 200px 0; }
@@ -76,7 +73,6 @@ body {
   50% { box-shadow: 0 0 20px rgba(138, 43, 226, 0.6); }
 }
 
-/* --- General Form Styles --- */
 .project-brief-form {
   max-width: 950px;
   margin: 0 auto;
@@ -107,7 +103,6 @@ body {
   transform: scaleX(1);
 }
 
-/* --- Enhanced Progress Steps --- */
 .progress-indicator {
   display: flex;
   justify-content: space-between;
@@ -206,7 +201,6 @@ body {
   box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
 }
 
-/* --- Enhanced Sections Animation --- */
 .form-section {
   display: none;
   margin-bottom: 2rem;
@@ -238,7 +232,6 @@ body {
   }
 }
 
-/* --- Enhanced Typography & Inputs --- */
 .form-section-title {
   color: var(--accent-light);
   font-family: var(--font-heading);
@@ -352,7 +345,6 @@ body {
   flex: 1;
 }
 
-/* --- Enhanced File Upload Styling --- */
 .file-upload-wrapper {
   border: 3px dashed var(--card-border-color);
   padding: 2.5rem 1.5rem;
@@ -568,7 +560,6 @@ body {
   box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
 }
 
-/* --- Enhanced Buttons --- */
 .form-navigation {
   display: flex;
   justify-content: space-between;
@@ -705,7 +696,6 @@ body {
   font-size: 1.3rem;
 }
 
-/* --- Enhanced Success Message --- */
 .success-animation {
   text-align: center;
   padding: 5rem 2rem;
@@ -760,7 +750,6 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
-  line-height: 1.3;
 }
 
 .success-message p {
@@ -821,7 +810,6 @@ body {
   100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(168, 85, 247, 0)); }
 }
 
-/* --- Form Validation Styles --- */
 .form-group.error input,
 .form-group.error textarea,
 .form-group.error select {
@@ -860,7 +848,6 @@ body {
   color: var(--success-color);
 }
 
-/* --- Section Transition Effects --- */
 .section-transition-enter {
   animation: slideInFromRight 0.4s forwards;
 }
@@ -869,7 +856,77 @@ body {
   animation: slideInFromLeft 0.4s forwards;
 }
 
-/* --- Enhanced Mobile Responsive Styles --- */
+.project-brief-form .form-group select option {
+  background: #2a2a3a;
+  color: white;
+  padding: 10px;
+}
+
+.project-brief-form .form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+}
+
+.form-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 15, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.form-loading.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(138, 43, 226, 0.3);
+  border-top: 4px solid var(--accent-purple);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.project-brief-form,
+.form-section,
+.progress-step,
+.form-group input,
+.form-group textarea {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.form-section.active {
+  animation-duration: 0.4s;
+}
+
+.progress-step {
+  transition-duration: 0.3s;
+}
+
+.form-group input,
+.form-group textarea {
+  transition-duration: 0.3s;
+}
+
 @media (max-width: 768px) {
   .container {
     width: 95%;
@@ -923,10 +980,14 @@ body {
   
   .form-section-title {
     font-size: 1.4rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   .form-group label {
     font-size: 0.95rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   p, label, .field-hint, h1, h2, h3, .form-section-title {
@@ -934,6 +995,7 @@ body {
     word-wrap: break-word;
     hyphens: auto;
     max-width: 100%;
+    word-break: normal;
   }
   
   .file-preview-item {
@@ -973,6 +1035,8 @@ body {
     font-size: 2rem;
     line-height: 1.2;
     padding: 0 1rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   .success-icon {
@@ -982,6 +1046,8 @@ body {
   .success-message p {
     font-size: 1.1rem;
     padding: 0 1rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   .btn-submit {
@@ -1011,6 +1077,8 @@ body {
   
   .form-section-title {
     font-size: 1.2rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   .form-navigation {
@@ -1028,6 +1096,8 @@ body {
   .success-message h2 {
     font-size: 1.7rem;
     line-height: 1.2;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   .success-icon {
@@ -1037,6 +1107,8 @@ body {
   .success-message p {
     font-size: 1rem;
     line-height: 1.5;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   .success-animation .cta-button {
@@ -1047,82 +1119,20 @@ body {
   }
 }
 
-/* --- Loading Animation --- */
-.form-loading {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(10, 10, 15, 0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-
-.form-loading.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.loading-spinner {
-  width: 60px;
-  height: 60px;
-  border: 4px solid rgba(138, 43, 226, 0.3);
-  border-top: 4px solid var(--accent-purple);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-/* --- Custom Scrollbar --- */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--accent-purple);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-light);
-}
-
-/* --- Performance Optimizations --- */
-* {
-  box-sizing: border-box;
-}
-
-.project-brief-form,
-.form-section,
-.progress-step,
 .form-group input,
-.form-group textarea {
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-  perspective: 1000px;
+.form-group textarea,
+.form-group select {
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
-.form-section.active {
-  animation-duration: 0.4s;
-}
-
-.progress-step {
-  transition-duration: 0.3s;
-}
-
-.form-group input,
-.form-group textarea {
-  transition-duration: 0.3s;
+.success-message h2,
+.success-message p,
+.form-section-title,
+.form-group label {
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: none;
 }
 </style>
 </head>
@@ -1449,7 +1459,6 @@ body {
 <script src="/assets/js/main.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
-// --- 1. Populate Hidden Fields ---
 (function populateHiddenFields() {
     try {
         const urlParams = new URLSearchParams(window.location.search);
@@ -1467,7 +1476,6 @@ body {
     }
 })();
 
-// --- 2. Enhanced Main Logic ---
 document.addEventListener('DOMContentLoaded', function() {
     const formSections = document.querySelectorAll('.form-section');
     const progressSteps = document.querySelectorAll('.progress-step');
@@ -1478,25 +1486,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const formLoading = document.getElementById('formLoading');
     let currentSection = 0;
     
-    // Initialize form with loading animation
     setTimeout(() => {
         document.querySelector('.project-brief-form').classList.add('loaded');
     }, 500);
     
-    // Main variable for file storage in memory
     const fileDataTransfer = new DataTransfer(); 
 
     updateFormDisplay();
 
-    // Enhanced Navigation Logic
     nextButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Validate current section before navigation
             if (!validateCurrentSection()) {
                 return;
             }
             
-            // Mark current section as completed
             markSectionAsCompleted(currentSection);
             
             const nextSection = parseInt(this.getAttribute('data-next'));
@@ -1511,12 +1514,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // --- Enhanced Quick Navigation via Progress Steps ---
     progressSteps.forEach(step => {
         step.addEventListener('click', function() {
             const targetSection = parseInt(this.getAttribute('data-step'));
             
-            // Allow navigation only to completed sections
             if (targetSection <= getLastCompletedSection()) {
                 navigateToSection(targetSection);
             } else {
@@ -1525,13 +1526,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // --- Enhanced File Upload Logic ---
     const fileUpload = document.getElementById('fileUpload');
     const filePreview = document.getElementById('filePreview');
     const fileUploadWrapper = document.getElementById('fileUploadWrapper');
     const fileValidationMessage = document.getElementById('fileValidationMessage');
 
-    // Drag and drop functionality
     if (fileUploadWrapper) {
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             fileUploadWrapper.addEventListener(eventName, preventDefaults, false);
@@ -1574,7 +1573,6 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             let isDuplicate = false;
-            // Check for duplicates in our memory storage
             for(let j = 0; j < fileDataTransfer.files.length; j++) {
                 if(fileDataTransfer.files[j].name === file.name && fileDataTransfer.files[j].size === file.size) {
                     isDuplicate = true;
@@ -1588,7 +1586,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Try to update input (may fail on iOS, we ignore it)
         try {
             fileUpload.files = fileDataTransfer.files;
         } catch(e) {
@@ -1639,7 +1636,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 duration: 0.3,
                 onComplete: () => {
                     elementToRemove.remove();
-                    // Rebuild DataTransfer
                     const newDt = new DataTransfer();
                     for (let i = 0; i < fileDataTransfer.files.length; i++) {
                         if (i !== indexToRemove) {
@@ -1651,7 +1647,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         fileDataTransfer.items.add(newDt.files[i]);
                     }
 
-                    // Sync input if possible
                     try {
                         document.getElementById('fileUpload').files = fileDataTransfer.files;
                     } catch(e) {}
@@ -1680,7 +1675,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function navigateToSection(sectionIndex) {
-        // Add exit animation to current section
         formSections[currentSection].classList.add('exiting');
         
         setTimeout(() => {
@@ -1690,10 +1684,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const sectionElement = document.getElementById(`section-${currentSection}`);
             if (sectionElement) {
-                // Faster scrolling with reduced duration
                 sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-        }, 200); // Reduced from 300ms to 200ms for faster transitions
+        }, 200);
     }
 
     function updateFormDisplay() {
@@ -1707,7 +1700,6 @@ document.addEventListener('DOMContentLoaded', function() {
             step.classList.toggle('completed', isCompleted);
         });
         
-        // Force display block for submit button on last step
         if (currentSection === formSections.length - 1) {
             submitButton.style.display = 'block';
         } else {
@@ -1719,14 +1711,12 @@ document.addEventListener('DOMContentLoaded', function() {
         progressSteps[sectionIndex].classList.add('completed');
     }
 
-    // Enhanced validation functions
     function validateCurrentSection() {
         const currentSectionElement = formSections[currentSection];
         let isValid = true;
         let firstInvalidField = null;
         
-        // Get all required fields in current section
-        const requiredInputs = currentSectionElement.querySelectorAll('input[required], textarea[required]');
+        const requiredInputs = currentSectionElement.querySelectorAll('input[required], textarea[required], select[required]');
         
         requiredInputs.forEach(input => {
             const formGroup = input.closest('.form-group');
@@ -1742,11 +1732,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     validationMessage.className = 'validation-message error show';
                 }
                 
-                // Add shake animation to invalid field
                 gsap.to(input, {
                     x: 10,
                     duration: 0.1,
-                    repeat: 3, // Reduced from 5 to 3 for faster feedback
+                    repeat: 3,
                     yoyo: true,
                     onComplete: () => gsap.set(input, { x: 0 })
                 });
@@ -1770,7 +1759,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     validationMessage.textContent = 'Looks good!';
                     validationMessage.className = 'validation-message success show';
                     
-                    // Hide success message after 2 seconds
                     setTimeout(() => {
                         validationMessage.classList.remove('show');
                     }, 2000);
@@ -1778,7 +1766,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Special validation for file upload section
         if (currentSection === 4 && fileDataTransfer.files.length === 0) {
             isValid = false;
             if (fileValidationMessage) {
@@ -1787,11 +1774,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             fileUploadWrapper.style.borderColor = 'var(--error-color)';
             
-            // Add shake animation to file upload area
             gsap.to(fileUploadWrapper, {
                 x: 10,
                 duration: 0.1,
-                repeat: 3, // Reduced from 5 to 3
+                repeat: 3,
                 yoyo: true,
                 onComplete: () => gsap.set(fileUploadWrapper, { x: 0 })
             });
@@ -1809,7 +1795,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return isValid;
     }
 
-    // Function to get last completed section
     function getLastCompletedSection() {
         for (let i = formSections.length - 1; i >= 0; i--) {
             if (isSectionCompleted(i)) {
@@ -1819,10 +1804,9 @@ document.addEventListener('DOMContentLoaded', function() {
         return 0;
     }
 
-    // Function to check if a section is completed
     function isSectionCompleted(sectionIndex) {
         const sectionElement = formSections[sectionIndex];
-        const requiredInputs = sectionElement.querySelectorAll('input[required], textarea[required]');
+        const requiredInputs = sectionElement.querySelectorAll('input[required], textarea[required], select[required]');
         
         for (let i = 0; i < requiredInputs.length; i++) {
             if (!requiredInputs[i].value.trim()) {
@@ -1830,7 +1814,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Special check for last section (files)
         if (sectionIndex === 4 && fileDataTransfer.files.length === 0) {
             return false;
         }
@@ -1838,9 +1821,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return true;
     }
 
-    // Notification function
     function showNotification(message, type = 'info') {
-        // Create notification element
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
         notification.innerHTML = `
@@ -1850,7 +1831,6 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
         
-        // Add styles for notification
         notification.style.cssText = `
             position: fixed;
             top: 20px;
@@ -1869,12 +1849,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.body.appendChild(notification);
         
-        // Animate in
         setTimeout(() => {
             notification.style.transform = 'translateX(0)';
         }, 100);
         
-        // Remove after 4 seconds
         setTimeout(() => {
             notification.style.transform = 'translateX(150%)';
             setTimeout(() => {
@@ -1885,7 +1863,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 4000);
     }
 
-    // --- 3. ENHANCED SUBMIT LOGIC ---
     const fileToBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -1906,16 +1883,14 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // Show loading animation
             formLoading.classList.add('active');
             
-            // Validate all sections before submission
             let allSectionsValid = true;
             let errorMessage = '';
             
             for (let i = 0; i < formSections.length; i++) {
                 const sectionElement = formSections[i];
-                const requiredInputs = sectionElement.querySelectorAll('input[required], textarea[required]');
+                const requiredInputs = sectionElement.querySelectorAll('input[required], textarea[required], select[required]');
                 
                 for (let j = 0; j < requiredInputs.length; j++) {
                     if (!requiredInputs[j].value.trim()) {
@@ -1927,7 +1902,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
                 
-                // Special check for last section (files)
                 if (i === 4 && fileDataTransfer.files.length === 0) {
                     allSectionsValid = false;
                     if (!errorMessage.includes('Section 4: Upload Your Assets')) {
@@ -1940,10 +1914,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 formLoading.classList.remove('active');
                 showNotification(`Please fill in all required fields before submitting.`, 'error');
                 
-                // Navigate to first section with errors
                 for (let i = 0; i < formSections.length; i++) {
                     const sectionElement = formSections[i];
-                    const requiredInputs = sectionElement.querySelectorAll('input[required], textarea[required]');
+                    const requiredInputs = sectionElement.querySelectorAll('input[required], textarea[required], select[required]');
                     let sectionHasError = false;
                     
                     for (let j = 0; j < requiredInputs.length; j++) {
@@ -1977,7 +1950,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const dataObj = {};
             formData.forEach((value, key) => dataObj[key] = value);
 
-            // [FIX]: Use files from memory fileDataTransfer
             const files = fileDataTransfer.files; 
             let fileDataArray = [];
 
@@ -1997,7 +1969,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            // Remove raw attachments since we sent dataBase64
             delete dataObj.attachments;
 
             const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbxF18USgE2zPae4TvgYfl6PJgu8Mw1VV29SQaJKszGuKD1kVuOSHUGR5QLoct80tUZg/exec";
@@ -2015,13 +1986,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     const successMsg = document.getElementById('successMessage');
                     successMsg.style.display = 'block';
                     
-                    // Enhanced success animation
                     gsap.fromTo(successMsg, 
                         {opacity: 0, scale: 0.8, rotationY: 90}, 
                         {opacity: 1, scale: 1, rotationY: 0, duration: 0.8, ease: "back.out(1.7)"}
                     );
                     
-                    // Add confetti effect
                     createConfetti();
                     
                 } else {
@@ -2038,7 +2007,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Confetti effect for success
     function createConfetti() {
         const colors = ['#8a2be2', '#a855f7', '#10b981', '#3b82f6', '#f59e0b'];
         
@@ -2059,7 +2027,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             document.body.appendChild(confetti);
             
-            // Animate confetti
             gsap.to(confetti, {
                 y: window.innerHeight + 20,
                 x: (Math.random() - 0.5) * 200,
@@ -2075,7 +2042,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Real-time validation for email field
     const emailInput = document.querySelector('input[type="email"]');
     if (emailInput) {
         emailInput.addEventListener('blur', function() {
@@ -2111,8 +2077,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return emailRegex.test(email);
     }
     
-    // Add input animations
-    const allInputs = document.querySelectorAll('input, textarea');
+    const allInputs = document.querySelectorAll('input, textarea, select');
     allInputs.forEach(input => {
         input.addEventListener('focus', function() {
             const formGroup = this.closest('.form-group');
