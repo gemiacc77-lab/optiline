@@ -1560,6 +1560,7 @@ body {
 })();
 
 document.addEventListener('DOMContentLoaded', function() {
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzYNFDJ77mlEB99GLNg4FV0pqboTzjKHlhRcKBbU3sRU4ncWKDCUKQHNK-EsifY3gamEA/exec";
     const formSections = document.querySelectorAll('.form-section');
     const progressSteps = document.querySelectorAll('.progress-step');
     const nextButtons = document.querySelectorAll('.btn-next');
@@ -1962,133 +1963,191 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Turnstile verified');
     }
 
-    if (form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+   if (form) {
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        formLoading.classList.add('active');
+        
+        let allSectionsValid = true;
+        let errorMessage = '';
+        
+        for (let i = 0; i < formSections.length; i++) {
+            const sectionElement = formSections[i];
+            const requiredInputs = sectionElement.querySelectorAll('input[required], textarea[required], select[required]');
             
-            formLoading.classList.add('active');
+            for (let j = 0; j < requiredInputs.length; j++) {
+                if (!requiredInputs[j].value.trim()) {
+                    allSectionsValid = false;
+                    const fieldLabel = requiredInputs[j].closest('.form-group').querySelector('label').textContent.replace('*', '').trim();
+                    if (!errorMessage.includes(`Section ${i}: ${fieldLabel}`)) {
+                        errorMessage += (errorMessage ? '\n' : '') + `Section ${i}: ${fieldLabel}`;
+                    }
+                }
+            }
             
-            let allSectionsValid = true;
-            let errorMessage = '';
+            if (i === 4 && fileDataTransfer.files.length === 0) {
+                allSectionsValid = false;
+                if (!errorMessage.includes('Section 4: Upload Your Assets')) {
+                    errorMessage += (errorMessage ? '\n' : '') + 'Section 4: Upload Your Assets';
+                }
+            }
+        }
+        
+        if (!allSectionsValid) {
+            formLoading.classList.remove('active');
+            showNotification(`Please fill in all required fields before submitting.`, 'error');
             
             for (let i = 0; i < formSections.length; i++) {
                 const sectionElement = formSections[i];
                 const requiredInputs = sectionElement.querySelectorAll('input[required], textarea[required], select[required]');
+                let sectionHasError = false;
                 
                 for (let j = 0; j < requiredInputs.length; j++) {
                     if (!requiredInputs[j].value.trim()) {
-                        allSectionsValid = false;
-                        const fieldLabel = requiredInputs[j].closest('.form-group').querySelector('label').textContent.replace('*', '').trim();
-                        if (!errorMessage.includes(`Section ${i}: ${fieldLabel}`)) {
-                            errorMessage += (errorMessage ? '\n' : '') + `Section ${i}: ${fieldLabel}`;
-                        }
-                    }
-                }
-                
-                if (i === 4 && fileDataTransfer.files.length === 0) {
-                    allSectionsValid = false;
-                    if (!errorMessage.includes('Section 4: Upload Your Assets')) {
-                        errorMessage += (errorMessage ? '\n' : '') + 'Section 4: Upload Your Assets';
-                    }
-                }
-            }
-            
-            if (!allSectionsValid) {
-                formLoading.classList.remove('active');
-                showNotification(`Please fill in all required fields before submitting.`, 'error');
-                
-                for (let i = 0; i < formSections.length; i++) {
-                    const sectionElement = formSections[i];
-                    const requiredInputs = sectionElement.querySelectorAll('input[required], textarea[required], select[required]');
-                    let sectionHasError = false;
-                    
-                    for (let j = 0; j < requiredInputs.length; j++) {
-                        if (!requiredInputs[j].value.trim()) {
-                            sectionHasError = true;
-                            break;
-                        }
-                    }
-                    
-                    if (sectionHasError || (i === 4 && fileDataTransfer.files.length === 0)) {
-                        navigateToSection(i);
+                        sectionHasError = true;
                         break;
                     }
                 }
-                return;
-            }
-
-            const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]');
-            if (!turnstileResponse || !turnstileResponse.value) {
-                formLoading.classList.remove('active');
-                showNotification('Please complete the security verification.', 'error');
-                return;
-            }
-
-            const submitButton = document.getElementById('submitBriefButton');
-            submitButton.textContent = 'Uploading & Sending...';
-            submitButton.classList.add('sending');
-            submitButton.disabled = true;
-
-            const formData = new FormData(form);
-            const dataObj = {};
-            formData.forEach((value, key) => dataObj[key] = value);
-
-            const files = fileDataTransfer.files; 
-            let fileDataArray = [];
-
-            if (files.length > 0) {
-                try {
-                    const promises = Array.from(files).map(file => fileToBase64(file));
-                    fileDataArray = await Promise.all(promises);
-                    dataObj.fileData = fileDataArray;
-                } catch (err) {
-                    console.error("File error:", err);
-                    formLoading.classList.remove('active');
-                    showNotification("Error processing files. Please try again.", 'error');
-                    submitButton.textContent = 'Submit Premium Brief';
-                    submitButton.classList.remove('sending');
-                    submitButton.disabled = false;
-                    return;
+                
+                if (sectionHasError || (i === 4 && fileDataTransfer.files.length === 0)) {
+                    navigateToSection(i);
+                    break;
                 }
             }
-            
-            delete dataObj.attachments;
+            return;
+        }
 
-            const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzYNFDJ77mlEB99GLNg4FV0pqboTzjKHlhRcKBbU3sRU4ncWKDCUKQHNK-EsifY3gamEA/exec";
+        const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]');
+        if (!turnstileResponse || !turnstileResponse.value) {
+            formLoading.classList.remove('active');
+            showNotification('Please complete the security verification.', 'error');
+            return;
+        }
 
+        const submitButton = document.getElementById('submitBriefButton');
+        submitButton.textContent = 'Uploading Files...';
+        submitButton.classList.add('sending');
+        submitButton.disabled = true;
+
+        // دالة جديدة لرفع ملف واحد باستخدام الـ API المتقدم
+        async function uploadSingleFile(file) {
             try {
+                // 1. نطلب من السكربت رابط رفع خاص لهذا الملف
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
                     headers: { "Content-Type": "text/plain;charset=utf-8" },
-                    body: JSON.stringify(dataObj)
+                    body: JSON.stringify({
+                        action: "getUploadUrl",
+                        fileName: file.name,
+                        mimeType: file.type,
+                        fileSize: file.size
+                    })
                 });
-                const result = await response.json();
-                if (result.status === 'ok') {
-                    formLoading.classList.remove('active');
-                    form.style.display = 'none';
-                    const successMsg = document.getElementById('successMessage');
-                    successMsg.style.display = 'block';
-                    
-                    gsap.fromTo(successMsg, 
-                        {opacity: 0, scale: 0.8, rotationY: 90}, 
-                        {opacity: 1, scale: 1, rotationY: 0, duration: 0.8, ease: "back.out(1.7)"}
-                    );
-                    
-                    createConfetti();
-                    
-                } else {
-                    throw new Error(result.message || 'Unknown error.');
+                
+                const data = await response.json();
+                if (data.status !== "success") throw new Error("Failed to get upload URL");
+                
+                const uploadUrl = data.url;
+
+                // 2. نرفع الملف مباشرة إلى رابط جوجل (PUT Request)
+                const uploadResponse = await fetch(uploadUrl, {
+                    method: "PUT",
+                    body: file,
+                    headers: { "Content-Type": file.type }
+                });
+
+                if (!uploadResponse.ok) {
+                    throw new Error(`Upload failed with status: ${uploadResponse.status}`);
                 }
-            } catch (err) {
-                console.error('Error:', err);
-                formLoading.classList.remove('active');
-                showNotification('Submission error. Please check your connection or contact support.', 'error');
-                submitButton.textContent = 'Submit Premium Brief';
-                submitButton.classList.remove('sending');
-                submitButton.disabled = false;
+
+                // إرجاع اسم الملف للتأكيد
+                return `Uploaded: ${file.name}`; 
+            } catch (error) {
+                console.error('Upload error for file:', file.name, error);
+                throw error;
             }
-        });
-    }
+        }
+
+        try {
+            // 1. رفع الملفات أولاً
+            const files = fileDataTransfer.files; 
+            let uploadedLinksLog = "";
+
+            if (files.length > 0) {
+                showNotification(`Starting upload of ${files.length} files...`, 'info');
+                
+                for (let i = 0; i < files.length; i++) {
+                    // تحديث نص الزر ليعرف العميل التقدم
+                    submitButton.textContent = `Uploading file ${i+1} of ${files.length}...`;
+                    
+                    try {
+                        const resultMsg = await uploadSingleFile(files[i]);
+                        uploadedLinksLog += resultMsg + "\n";
+                        
+                        // تحديث واجهة المستخدم لتظهر تقدم الرفع
+                        const fileItem = document.getElementById(`file-item-${i}`);
+                        if (fileItem) {
+                            fileItem.style.background = 'rgba(168, 85, 247, 0.1)';
+                        }
+                        
+                    } catch (uploadErr) {
+                        console.error(`Failed to upload ${files[i].name}:`, uploadErr);
+                        uploadedLinksLog += `Failed: ${files[i].name} - ${uploadErr.message}\n`;
+                        
+                        // إظهار خطأ في الواجهة للملف الفاشل
+                        const fileItem = document.getElementById(`file-item-${i}`);
+                        if (fileItem) {
+                            fileItem.style.background = 'rgba(239, 68, 68, 0.1)';
+                            fileItem.style.borderColor = 'var(--error-color)';
+                        }
+                    }
+                }
+                
+                showNotification(`File upload completed!`, 'success');
+            } else {
+                uploadedLinksLog = "No files selected.";
+            }
+
+            // 2. إرسال بيانات النموذج مع معلومات الملفات
+            submitButton.textContent = 'Sending Data...';
+            
+            const formData = new FormData(form);
+            const dataObj = {};
+            formData.forEach((value, key) => dataObj[key] = value);
+            
+            // نضيف سجل الملفات المرفوعة
+            dataObj.fileLinks = uploadedLinksLog;
+            dataObj.uploadedFileCount = files.length;
+            delete dataObj.attachments; // لا نرسل الملفات بالطريقة القديمة
+
+            const response = await fetch(SCRIPT_URL, {
+                method: 'POST',
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(dataObj)
+            });
+            
+            const result = await response.json();
+            
+            if (result.status === 'ok') {
+                formLoading.classList.remove('active');
+                form.style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                createConfetti();
+            } else {
+                throw new Error(result.message || 'Unknown error.');
+            }
+
+        } catch (err) {
+            console.error('Submission error:', err);
+            formLoading.classList.remove('active');
+            showNotification('Submission error: ' + err.message, 'error');
+            submitButton.textContent = 'Submit Premium Brief';
+            submitButton.classList.remove('sending');
+            submitButton.disabled = false;
+        }
+    });
+}
     
     function createConfetti() {
         const colors = ['#8a2be2', '#a855f7', '#10b981', '#3b82f6', '#f59e0b'];
