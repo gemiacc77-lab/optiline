@@ -1533,6 +1533,7 @@ main, footer {
     opacity: 1;
 }
 
+/* --- Mobile Fixes --- */
 .btn-submit {
   display: block !important;
   z-index: 1000 !important;
@@ -1541,7 +1542,9 @@ main, footer {
 
 .custom-cursor {
   pointer-events: none;
-} 
+} /* <--- تم إضافة قوس الإغلاق هنا */
+
+/* --- Global Text Fix for Mobile (No Hyphens) --- */
 p, h1, h2, h3, h4, label, .field-hint, .form-section-title, .success-message p, .success-message h2, .subtle-glow {
     -webkit-hyphens: none !important;
     -ms-hyphens: none !important;
