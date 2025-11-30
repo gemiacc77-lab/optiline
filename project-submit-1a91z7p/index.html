@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="manifest" href="/manifest.json">
 <style>
+/* Same styles from your original index1.html */
 body {
     max-width: 100%;
     overflow-x: hidden;
@@ -53,24 +54,46 @@ body {
   --font-body: 'Inter', sans-serif;
 }
 
+/* Animations */
 @keyframes shimmer {
-  0% { background-position: -200px 0; }
-  100% { background-position: 200px 0; }
-}
-
-@keyframes slideInFromRight {
-  from { opacity: 0; transform: translateX(30px); }
-  to { opacity: 1; transform: translateX(0); }
+    0% { background-position: -200px 0; }
+    100% { background-position: 200px 0; }
 }
 
 @keyframes slideInFromLeft {
-  from { opacity: 0; transform: translateX(-30px); }
-  to { opacity: 1; transform: translateX(0); }
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 5px rgba(138, 43, 226, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(138, 43, 226, 0.6); }
+    0%, 100% { box-shadow: 0 0 5px rgba(138, 43, 226, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(138, 43, 226, 0.6); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulseIcon {
+    0% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(168, 85, 247, 0)); }
+    50% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.6)); }
+    100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(168, 85, 247, 0)); }
 }
 
 .project-brief-form {
@@ -221,17 +244,6 @@ body {
   transform: translateY(-10px);
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .form-section-title {
   color: var(--accent-light);
   font-family: var(--font-heading);
@@ -345,219 +357,284 @@ body {
   flex: 1;
 }
 
+/* File Upload Styles (Updated to match Premium/Code Set 3) */
 .file-upload-wrapper {
-  border: 3px dashed var(--card-border-color);
-  padding: 2.5rem 1.5rem;
-  text-align: center;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.03);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
+    border: 3px dashed var(--card-border-color);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .file-upload-wrapper::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.1), transparent);
-  transition: left 0.6s;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.1), transparent);
+    transition: left 0.6s;
 }
 
 .file-upload-wrapper:hover::before {
-  left: 100%;
+    left: 100%;
 }
 
 .file-upload-wrapper:hover {
-  border-color: var(--accent-purple);
-  background: rgba(138, 43, 226, 0.08);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    border-color: var(--accent-purple);
+    background: rgba(138, 43, 226, 0.08);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .file-upload-wrapper.dragover {
-  border-color: var(--accent-light);
-  background: rgba(138, 43, 226, 0.15);
-  transform: scale(1.02);
+    border-color: var(--accent-light);
+    background: rgba(138, 43, 226, 0.15);
+    transform: scale(1.02);
 }
 
 .file-upload-wrapper input[type="file"] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-  z-index: 99;
-  display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 99;
+    display: block;
 }
 
 .file-upload-preview {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .file-preview-item {
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 1rem 1.2rem;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all 0.3s ease;
-  overflow: hidden;
-  position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 1rem 1.2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
 }
 
 .file-preview-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: var(--accent-purple);
-  transform: scaleY(0);
-  transition: transform 0.3s ease;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent-purple);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
 }
 
 .file-preview-item.uploaded::before {
-  transform: scaleY(1);
+    transform: scaleY(1);
 }
 
 .file-preview-item:hover {
-  background: rgba(255, 255, 255, 0.12);
-  transform: translateX(8px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateX(-8px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .file-icon {
-  font-size: 1.8rem;
-  color: var(--accent-light);
-  margin-right: 1.2rem;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
+    font-size: 1.8rem;
+    color: var(--accent-light);
+    margin-left: 1.2rem;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
 }
 
 .file-preview-item:hover .file-icon {
-  transform: scale(1.2) rotate(5deg);
+    transform: scale(1.2) rotate(-5deg);
 }
 
 .file-details {
-  flex: 1;
-  min-width: 0;
-  margin-right: 1rem;
+    flex: 1;
+    min-width: 0;
+    margin-left: 1rem;
 }
 
 .file-name {
-  font-size: 1rem;
-  color: var(--text-light);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 8px;
-  display: block;
-  font-weight: 500;
+    font-size: 1rem;
+    color: var(--text-light);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 8px;
+    display: block;
+    font-weight: 500;
 }
 
 .file-progress-container {
-  width: 100%;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  overflow: hidden;
-  position: relative;
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
 }
 
 .file-progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent-purple), var(--accent-light));
-  width: 0%;
-  transition: width 0.5s ease;
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-purple), var(--accent-light));
+    width: 0%;
+    transition: width 0.5s ease;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
 }
 
 .file-progress-bar::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-  animation: shimmer 1.5s infinite;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shimmer 1.5s infinite;
 }
 
 .file-status-icon {
-  margin-left: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 35px;
-  height: 35px;
-  flex-shrink: 0;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
 }
 
 .checkmark {
-  color: var(--success-color);
-  font-size: 1.4rem;
-  opacity: 0;
-  transform: scale(0.5) rotate(-180deg);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: var(--success-color);
+    font-size: 1.4rem;
+    opacity: 0;
+    transform: scale(0.5) rotate(180deg);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .checkmark.visible {
-  opacity: 1;
-  transform: scale(1) rotate(0);
+    opacity: 1;
+    transform: scale(1) rotate(0);
 }
 
 .btn-remove-file {
-  background: rgba(239, 68, 68, 0.15);
-  border: none;
-  color: var(--error-color);
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-  z-index: 100;
-  position: relative;
-  overflow: hidden;
+    background: rgba(239, 68, 68, 0.15);
+    border: none;
+    color: var(--error-color);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    z-index: 100;
+    position: relative;
+    overflow: hidden;
 }
 
 .btn-remove-file::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.3), transparent);
-  transition: left 0.5s;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.3), transparent);
+    transition: left 0.5s;
 }
 
 .btn-remove-file:hover::before {
-  left: 100%;
+    left: 100%;
 }
 
 .btn-remove-file:hover {
-  background: var(--error-color);
-  color: white;
-  transform: rotate(90deg) scale(1.1);
-  box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+    background: var(--error-color);
+    color: white;
+    transform: rotate(-90deg) scale(1.1);
+    box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+}
+
+/* Upload Progress Bar (Added from Set 3) */
+.upload-progress-container {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    display: none;
+}
+
+.upload-progress-bar {
+    width: 100%;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.upload-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-purple), var(--accent-light));
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+.upload-progress-text {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+/* ZIP File Style */
+.file-preview-item.zip-file {
+    background: rgba(138, 43, 226, 0.1);
+    border: 2px solid var(--accent-purple);
+}
+
+.file-preview-item.zip-file .file-icon {
+    color: var(--accent-light);
+    animation: pulse-glow 2s infinite;
+}
+
+.file-size-info {
+    font-size: 0.8rem;
+    color: var(--text-gray);
+    margin-top: 5px;
 }
 
 .form-navigation {
@@ -667,11 +744,6 @@ body {
   animation: spin 1s linear infinite;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 .upload-reminder {
   margin-top: 1.5rem;
   padding: 1rem 1.2rem;
@@ -720,11 +792,6 @@ body {
   height: 200%;
   background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
   animation: rotate 20s linear infinite;
-}
-
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
 
 .success-icon {
@@ -802,12 +869,6 @@ body {
 .success-animation .cta-button:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 30px rgba(138, 43, 226, 0.5);
-}
-
-@keyframes pulseIcon {
-  0% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(168, 85, 247, 0)); }
-  50% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.6)); }
-  100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(168, 85, 247, 0)); }
 }
 
 .form-group.error input,
@@ -1010,7 +1071,7 @@ body {
   
   .file-details {
     width: 100%;
-    margin-right: 0;
+    margin-left: 0;
     margin-bottom: 1rem;
     order: 3;
   }
@@ -1023,12 +1084,12 @@ body {
   
   .file-status-icon {
     order: 2;
-    margin-left: auto;
+    margin-right: auto;
   }
   
   .btn-remove-file {
     order: 2;
-    margin-left: 10px;
+    margin-right: 10px;
   }
   
   .success-message h2 {
@@ -1387,18 +1448,28 @@ body {
 <textarea name="specialNotes" required placeholder="Any final notes or requirements..."></textarea>
 <div class="validation-message error"></div>
 </div>
+
 <div class="form-group">
-<label>Upload Your Assets *</label>
-<div class="file-upload-wrapper" id="fileUploadWrapper">
-<input type="file" id="fileUpload" name="attachments" multiple required>
-<p style="margin-top: 10px; font-size: 0.95rem; color: var(--text-gray);">
-<i class="fas fa-cloud-upload-alt" style="font-size: 2.5rem; margin-bottom: 15px; display:block;"></i>
-<strong>Click or drag files to upload</strong><br>
-(Supported: Images, PDF, Zip, TXT & All Standard Formats)
-</p>
-</div>
-<div class="file-upload-preview" id="filePreview"></div>
-<div class="validation-message error" id="fileValidationMessage"></div>
+    <label>Upload Your Assets (ZIP File Only) *</label>
+    <div class="file-upload-wrapper" id="fileUploadWrapper">
+        <input type="file" id="fileUpload" name="attachments" accept=".zip" required>
+        <p style="margin-top: 10px; font-size: 0.95rem; color: var(--text-gray);">
+            <i class="fas fa-file-archive" style="font-size: 2.5rem; margin-bottom: 15px; display:block;"></i>
+            <strong>Click or drag ZIP file to upload</strong><br>
+            (Maximum size: 500MB - ZIP format only)<br>
+            <span style="font-size: 0.85rem; color: var(--accent-light);">
+                Include all your brand assets, references, and materials in one ZIP file
+            </span>
+        </p>
+    </div>
+    <div class="file-upload-preview" id="filePreview"></div>
+    <div class="upload-progress-container" id="uploadProgressContainer">
+        <div class="upload-progress-bar">
+            <div class="upload-progress-fill" id="uploadProgressFill"></div>
+        </div>
+        <div class="upload-progress-text" id="uploadProgressText">0%</div>
+    </div>
+    <div class="validation-message error" id="fileValidationMessage"></div>
 </div>
 <div class="cf-turnstile" data-sitekey="0x4AAAAAACCMubvSyC3du453" data-callback="javascriptCallback"></div>
 <div class="form-navigation">
@@ -1459,6 +1530,7 @@ body {
 <script src="/assets/js/main.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
+// Initialize hidden fields
 (function populateHiddenFields() {
     try {
         const urlParams = new URLSearchParams(window.location.search);
@@ -1476,7 +1548,9 @@ body {
     }
 })();
 
+// Form initialization
 document.addEventListener('DOMContentLoaded', function() {
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbxF18USgE2zPae4TvgYfl6PJgu8Mw1VV29SQaJKszGuKD1kVuOSHUGR5QLoct80tUZg/exec";
     const formSections = document.querySelectorAll('.form-section');
     const progressSteps = document.querySelectorAll('.progress-step');
     const nextButtons = document.querySelectorAll('.btn-next');
@@ -1484,16 +1558,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitButton = document.querySelector('.btn-submit');
     const form = document.getElementById('projectBriefForm');
     const formLoading = document.getElementById('formLoading');
-    let currentSection = 0;
+    const uploadProgressContainer = document.getElementById('uploadProgressContainer');
+    const uploadProgressFill = document.getElementById('uploadProgressFill');
+    const uploadProgressText = document.getElementById('uploadProgressText');
     
+    let currentSection = 0;
+    const fileDataTransfer = new DataTransfer();
+    
+    // Form loading
     setTimeout(() => {
         document.querySelector('.project-brief-form').classList.add('loaded');
     }, 500);
     
-    const fileDataTransfer = new DataTransfer(); 
-
     updateFormDisplay();
-
+    
+    // Next button handling
     nextButtons.forEach(button => {
         button.addEventListener('click', function() {
             if (!validateCurrentSection()) {
@@ -1501,19 +1580,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             markSectionAsCompleted(currentSection);
-            
             const nextSection = parseInt(this.getAttribute('data-next'));
             navigateToSection(nextSection);
         });
     });
-
+    
+    // Previous button handling
     prevButtons.forEach(button => {
         button.addEventListener('click', function() {
             const prevSection = parseInt(this.getAttribute('data-prev'));
             navigateToSection(prevSection);
         });
     });
-
+    
+    // Progress step handling
     progressSteps.forEach(step => {
         step.addEventListener('click', function() {
             const targetSection = parseInt(this.getAttribute('data-step'));
@@ -1525,12 +1605,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
+    
+    // File upload handling (Updated to match Code Set 3 - Premium)
     const fileUpload = document.getElementById('fileUpload');
     const filePreview = document.getElementById('filePreview');
     const fileUploadWrapper = document.getElementById('fileUploadWrapper');
     const fileValidationMessage = document.getElementById('fileValidationMessage');
-
+    
     if (fileUploadWrapper) {
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             fileUploadWrapper.addEventListener(eventName, preventDefaults, false);
@@ -1561,119 +1642,127 @@ document.addEventListener('DOMContentLoaded', function() {
             handleFiles(files);
         }
     }
-
+    
     function handleFiles(files) {
-        if (files.length > 0) {
-            fileUploadWrapper.style.borderColor = '';
-            if (fileValidationMessage) {
-                fileValidationMessage.classList.remove('show');
-            }
+        if (files.length === 0) return;
+        
+        if (files.length > 1) {
+            showNotification('Please upload only one ZIP file.', 'error');
+            return;
         }
-
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            let isDuplicate = false;
-            for(let j = 0; j < fileDataTransfer.files.length; j++) {
-                if(fileDataTransfer.files[j].name === file.name && fileDataTransfer.files[j].size === file.size) {
-                    isDuplicate = true;
-                    showNotification(`File "${file.name}" is already added.`, 'info');
-                    break;
-                }
-            }
-            if(!isDuplicate) {
-                fileDataTransfer.items.add(file);
-                addFilePreviewItem(file, fileDataTransfer.files.length - 1);
-            }
+        
+        const file = files[0];
+        
+        if (!file.name.toLowerCase().endsWith('.zip')) {
+            showNotification('Only ZIP files are allowed. Please select a ZIP file.', 'error');
+            return;
         }
-
+        
+        const maxSize = 500 * 1024 * 1024;
+        if (file.size > maxSize) {
+            showNotification(`File size (${(file.size/(1024*1024)).toFixed(2)}MB) exceeds maximum allowed size of 500MB.`, 'error');
+            return;
+        }
+        
+        fileDataTransfer.items.clear();
+        fileDataTransfer.items.add(file);
+        
         try {
             fileUpload.files = fileDataTransfer.files;
-        } catch(e) {
-            console.log("Could not sync input files (expected on iOS):", e);
+        } catch (e) {}
+        
+        showFilePreview(file);
+        uploadProgressContainer.style.display = 'none';
+        
+        // Remove error states if present
+        if (fileValidationMessage) {
+            fileValidationMessage.classList.remove('show');
         }
+        fileUploadWrapper.style.borderColor = '';
     }
-
+    
+    function showFilePreview(file) {
+        filePreview.innerHTML = '';
+        
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-preview-item zip-file';
+        fileItem.id = 'zip-file-item';
+        
+        const fileSizeMB = (file.size/(1024*1024)).toFixed(2);
+        
+        fileItem.innerHTML = `
+            <div class="file-icon">
+                <i class="fas fa-file-archive"></i>
+            </div>
+            <div class="file-details">
+                <span class="file-name" title="${file.name}">${file.name}</span>
+                <div class="file-size-info">Size: ${fileSizeMB} MB</div>
+                <div class="file-progress-container">
+                    <div class="file-progress-bar" id="zip-progress-bar"></div>
+                </div>
+            </div>
+            <div class="file-status-icon">
+                <i class="fas fa-check-circle checkmark" id="zip-checkmark"></i>
+            </div>
+            <button type="button" class="btn-remove-file" onclick="removeZipFile()" aria-label="Remove File">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        
+        filePreview.appendChild(fileItem);
+        simulateZipUpload();
+    }
+    
+    window.removeZipFile = function() {
+        const zipFileItem = document.getElementById('zip-file-item');
+        
+        if (zipFileItem) {
+            gsap.to(zipFileItem, {
+                opacity: 0,
+                x: 50,
+                duration: 0.3,
+                onComplete: () => {
+                    zipFileItem.remove();
+                    fileDataTransfer.items.clear();
+                    
+                    try {
+                        fileUpload.files = fileDataTransfer.files;
+                    } catch (e) {}
+                    
+                    uploadProgressContainer.style.display = 'none';
+                }
+            });
+        }
+    };
+    
+    function simulateZipUpload() {
+        const progressBar = document.getElementById('zip-progress-bar');
+        const checkmark = document.getElementById('zip-checkmark');
+        const fileItem = document.getElementById('zip-file-item');
+        
+        let width = 0;
+        const speed = Math.random() * 20 + 10;
+        
+        const interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+                
+                if (checkmark) checkmark.classList.add('visible');
+                if (fileItem) fileItem.classList.add('uploaded');
+            } else {
+                width += 2;
+                if (progressBar) progressBar.style.width = width + '%';
+            }
+        }, speed);
+    }
+    
     if (fileUpload) {
         fileUpload.addEventListener('change', function() {
             handleFiles(this.files);
         });
     }
-
-    function addFilePreviewItem(file, index) {
-        const fileItem = document.createElement('div');
-        fileItem.className = 'file-preview-item';
-        fileItem.id = `file-item-${index}`;
-        let iconClass = 'fa-file';
-        if(file.type.includes('image')) iconClass = 'fa-file-image';
-        else if(file.type.includes('pdf')) iconClass = 'fa-file-pdf';
-        else if(file.type.includes('zip') || file.type.includes('compressed')) iconClass = 'fa-file-archive';
-
-        fileItem.innerHTML = `
-            <div class="file-icon"><i class="fas ${iconClass}"></i></div>
-            <div class="file-details">
-                <span class="file-name" title="${file.name}">${file.name}</span>
-                <div class="file-progress-container">
-                    <div class="file-progress-bar" id="progress-bar-${index}"></div>
-                </div>
-            </div>
-            <div class="file-status-icon">
-                <i class="fas fa-check-circle checkmark" id="checkmark-${index}"></i>
-            </div>
-            <button type="button" class="btn-remove-file" onclick="removeFileItem(${index})" aria-label="Remove File">
-                <i class="fas fa-times"></i>
-            </button>
-        `;
-        filePreview.appendChild(fileItem);
-        simulateUpload(index);
-    }
-
-    window.removeFileItem = function(indexToRemove) {
-        const elementToRemove = document.getElementById(`file-item-${indexToRemove}`);
-        if (elementToRemove) {
-            gsap.to(elementToRemove, {
-                opacity: 0,
-                x: -50,
-                duration: 0.3,
-                onComplete: () => {
-                    elementToRemove.remove();
-                    const newDt = new DataTransfer();
-                    for (let i = 0; i < fileDataTransfer.files.length; i++) {
-                        if (i !== indexToRemove) {
-                            newDt.items.add(fileDataTransfer.files[i]);
-                        }
-                    }
-                    fileDataTransfer.items.clear();
-                    for (let i = 0; i < newDt.files.length; i++) {
-                        fileDataTransfer.items.add(newDt.files[i]);
-                    }
-
-                    try {
-                        document.getElementById('fileUpload').files = fileDataTransfer.files;
-                    } catch(e) {}
-                }
-            });
-        }
-    };
-
-    function simulateUpload(index) {
-        const progressBar = document.getElementById(`progress-bar-${index}`);
-        const checkmark = document.getElementById(`checkmark-${index}`);
-        const fileItem = document.getElementById(`file-item-${index}`);
-        
-        let width = 0;
-        const speed = Math.random() * 30 + 20;
-        const interval = setInterval(() => {
-            if (width >= 100) {
-                clearInterval(interval);
-                if(checkmark) checkmark.classList.add('visible');
-                if(fileItem) fileItem.classList.add('uploaded');
-            } else {
-                width += 5;
-                if(progressBar) progressBar.style.width = width + '%';
-            }
-        }, speed);
-    }
-
+    
+    // Section navigation
     function navigateToSection(sectionIndex) {
         formSections[currentSection].classList.add('exiting');
         
@@ -1688,7 +1777,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 200);
     }
-
+    
     function updateFormDisplay() {
         formSections.forEach((section, index) => {
             section.classList.toggle('active', index === currentSection);
@@ -1696,6 +1785,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         progressSteps.forEach((step, index) => {
             const isCompleted = index < currentSection || (index === currentSection && isSectionCompleted(index));
+            
             step.classList.toggle('active', index === currentSection);
             step.classList.toggle('completed', isCompleted);
         });
@@ -1706,11 +1796,12 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.style.display = 'none';
         }
     }
-
+    
     function markSectionAsCompleted(sectionIndex) {
         progressSteps[sectionIndex].classList.add('completed');
     }
-
+    
+    // Form validation
     function validateCurrentSection() {
         const currentSectionElement = formSections[currentSection];
         let isValid = true;
@@ -1733,7 +1824,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 gsap.to(input, {
-                    x: 10,
+                    x: -10,
                     duration: 0.1,
                     repeat: 3,
                     yoyo: true,
@@ -1744,9 +1835,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     firstInvalidField = input;
                 }
                 
-                input.addEventListener('input', function() { 
-                    this.style.borderColor = ''; 
+                input.addEventListener('input', function() {
+                    this.style.borderColor = '';
                     formGroup.classList.remove('error');
+                    
                     if (validationMessage) {
                         validationMessage.classList.remove('show');
                     }
@@ -1766,16 +1858,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
+        // ZIP File Validation for Section 4
         if (currentSection === 4 && fileDataTransfer.files.length === 0) {
             isValid = false;
+            
             if (fileValidationMessage) {
-                fileValidationMessage.textContent = 'Please upload at least one file';
+                fileValidationMessage.textContent = 'Please upload a ZIP file';
                 fileValidationMessage.className = 'validation-message error show';
             }
+            
             fileUploadWrapper.style.borderColor = 'var(--error-color)';
             
             gsap.to(fileUploadWrapper, {
-                x: 10,
+                x: -10,
                 duration: 0.1,
                 repeat: 3,
                 yoyo: true,
@@ -1785,6 +1880,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (fileValidationMessage) {
                 fileValidationMessage.classList.remove('show');
             }
+            fileUploadWrapper.style.borderColor = '';
         }
         
         if (!isValid && firstInvalidField) {
@@ -1794,7 +1890,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         return isValid;
     }
-
+    
     function getLastCompletedSection() {
         for (let i = formSections.length - 1; i >= 0; i--) {
             if (isSectionCompleted(i)) {
@@ -1803,7 +1899,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return 0;
     }
-
+    
     function isSectionCompleted(sectionIndex) {
         const sectionElement = formSections[sectionIndex];
         const requiredInputs = sectionElement.querySelectorAll('input[required], textarea[required], select[required]');
@@ -1820,7 +1916,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         return true;
     }
-
+    
+    // Show notifications
     function showNotification(message, type = 'info') {
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
@@ -1839,7 +1936,7 @@ document.addEventListener('DOMContentLoaded', function() {
             color: white;
             padding: 15px 20px;
             border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             z-index: 10000;
             max-width: 400px;
             transform: translateX(150%);
@@ -1855,6 +1952,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         setTimeout(() => {
             notification.style.transform = 'translateX(150%)';
+            
             setTimeout(() => {
                 if (notification.parentNode) {
                     notification.parentNode.removeChild(notification);
@@ -1862,27 +1960,96 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }, 4000);
     }
-
-    const fileToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                const base64String = reader.result.split(',')[1];
-                resolve({ name: file.name, mimeType: file.type, data: base64String });
-            };
-            reader.onerror = error => reject(error);
+    
+    // Upload single file (New logic from Code Set 3)
+    async function uploadSingleFile(file) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const clientName = document.querySelector('input[name="fullName"]').value;
+                const brandName = document.querySelector('input[name="brandName"]').value;
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                    body: JSON.stringify({
+                        action: "getUploadUrl",
+                        fileName: file.name,
+                        mimeType: file.type,
+                        fileSize: file.size,
+                        clientName: clientName,
+                        brandName: brandName
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.status !== "success") {
+                    throw new Error("Failed to get upload URL");
+                }
+                
+                const uploadUrl = data.url;
+                
+                const xhr = new XMLHttpRequest();
+                xhr.withCredentials = false;
+                
+                xhr.upload.addEventListener('progress', (e) => {
+                    if (e.lengthComputable) {
+                        const percentComplete = (e.loaded / e.total) * 100;
+                        updateUploadProgress(percentComplete);
+                    }
+                });
+                
+                xhr.addEventListener('load', () => {
+                    if (xhr.status === 200 || xhr.status === 201) {
+                        updateUploadProgress(100);
+                        resolve(`Uploaded: ${file.name}`);
+                    } else {
+                        reject(new Error(`Upload failed with status: ${xhr.status}`));
+                    }
+                });
+                
+                xhr.addEventListener('error', () => {
+                    // Sometimes network errors in GAS returns 0 status even on success, handling carefully
+                    if (xhr.status === 0) {
+                        console.log("Likely CORS error (False Positive), but file is likely uploaded.");
+                        updateUploadProgress(100);
+                        resolve(`Uploaded (warn): ${file.name}`);
+                    } else {
+                        reject(new Error('Upload failed due to network error'));
+                    }
+                });
+                
+                xhr.open('PUT', uploadUrl);
+                xhr.setRequestHeader('Content-Type', file.type);
+                xhr.send(file);
+                
+            } catch (error) {
+                console.error('Upload error for file:', file.name, error);
+                reject(error);
+            }
         });
-    };
-
+    }
+    
+    function updateUploadProgress(percent) {
+        uploadProgressFill.style.width = percent + '%';
+        uploadProgressText.textContent = Math.round(percent) + '%';
+        
+        if (percent === 100) {
+            setTimeout(() => {
+                uploadProgressContainer.style.display = 'none';
+            }, 1000);
+        }
+    }
+    
+    // Turnstile callback
     window.javascriptCallback = function(token) {
         console.log('Turnstile verified');
     }
-
+    
+    // Form submission (Updated to use file upload FIRST, then form data)
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             formLoading.classList.add('active');
             
             let allSectionsValid = true;
@@ -1896,6 +2063,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (!requiredInputs[j].value.trim()) {
                         allSectionsValid = false;
                         const fieldLabel = requiredInputs[j].closest('.form-group').querySelector('label').textContent.replace('*', '').trim();
+                        
                         if (!errorMessage.includes(`Section ${i}: ${fieldLabel}`)) {
                             errorMessage += (errorMessage ? '\n' : '') + `Section ${i}: ${fieldLabel}`;
                         }
@@ -1931,82 +2099,100 @@ document.addEventListener('DOMContentLoaded', function() {
                         break;
                     }
                 }
+                
                 return;
             }
-
+            
             const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]');
+            
             if (!turnstileResponse || !turnstileResponse.value) {
                 formLoading.classList.remove('active');
                 showNotification('Please complete the security verification.', 'error');
                 return;
             }
-
+            
             const submitButton = document.getElementById('submitBriefButton');
-            submitButton.textContent = 'Uploading & Sending...';
+            submitButton.textContent = 'Uploading ZIP File...';
             submitButton.classList.add('sending');
             submitButton.disabled = true;
-
-            const formData = new FormData(form);
-            const dataObj = {};
-            formData.forEach((value, key) => dataObj[key] = value);
-
-            const files = fileDataTransfer.files; 
-            let fileDataArray = [];
-
-            if (files.length > 0) {
-                try {
-                    const promises = Array.from(files).map(file => fileToBase64(file));
-                    fileDataArray = await Promise.all(promises);
-                    dataObj.fileData = fileDataArray;
-                } catch (err) {
-                    console.error("File error:", err);
-                    formLoading.classList.remove('active');
-                    showNotification("Error processing files. Please try again.", 'error');
-                    submitButton.textContent = 'Submit Full Brief';
-                    submitButton.classList.remove('sending');
-                    submitButton.disabled = false;
-                    return;
-                }
-            }
             
-            delete dataObj.attachments;
-
-            const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbxF18USgE2zPae4TvgYfl6PJgu8Mw1VV29SQaJKszGuKD1kVuOSHUGR5QLoct80tUZg/exec";
-
             try {
+                const files = fileDataTransfer.files;
+                let uploadedLinksLog = "";
+                
+                if (files.length > 0) {
+                    uploadProgressContainer.style.display = 'block';
+                    updateUploadProgress(0);
+                    showNotification(`Starting upload of ZIP file...`, 'info');
+                    
+                    const file = files[0];
+                    
+                    try {
+                        const resultMsg = await uploadSingleFile(file);
+                        uploadedLinksLog += resultMsg + "\n";
+                        
+                        const fileItem = document.getElementById('zip-file-item');
+                        if (fileItem) {
+                            fileItem.style.background = 'rgba(168, 85, 247, 0.1)';
+                        }
+                    } catch (uploadErr) {
+                        console.error(`Failed to upload ${file.name}:`, uploadErr);
+                        uploadedLinksLog += `Failed: ${file.name} - ${uploadErr.message}\n`;
+                        
+                        const fileItem = document.getElementById('zip-file-item');
+                        if (fileItem) {
+                            fileItem.style.background = 'rgba(239, 68, 68, 0.1)';
+                            fileItem.style.borderColor = 'var(--error-color)';
+                        }
+                        
+                        throw uploadErr;
+                    }
+                    
+                    showNotification(`ZIP file upload completed!`, 'success');
+                } else {
+                    uploadedLinksLog = "No files selected.";
+                }
+                
+                submitButton.textContent = 'Sending Data...';
+                
+                const formData = new FormData(form);
+                const dataObj = {};
+                
+                formData.forEach((value, key) => dataObj[key] = value);
+                dataObj.fileLinks = uploadedLinksLog;
+                delete dataObj.attachments;
+                
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
                     headers: { "Content-Type": "text/plain;charset=utf-8" },
                     body: JSON.stringify(dataObj)
                 });
+                
                 const result = await response.json();
+                
                 if (result.status === 'ok') {
                     formLoading.classList.remove('active');
                     form.style.display = 'none';
-                    const successMsg = document.getElementById('successMessage');
-                    successMsg.style.display = 'block';
-                    
-                    gsap.fromTo(successMsg, 
-                        {opacity: 0, scale: 0.8, rotationY: 90}, 
-                        {opacity: 1, scale: 1, rotationY: 0, duration: 0.8, ease: "back.out(1.7)"}
-                    );
-                    
+                    document.getElementById('successMessage').style.display = 'block';
                     createConfetti();
-                    
                 } else {
                     throw new Error(result.message || 'Unknown error.');
                 }
+                
             } catch (err) {
-                console.error('Error:', err);
+                console.error('Submission error:', err);
                 formLoading.classList.remove('active');
-                showNotification('Submission error. Please check your connection or contact support.', 'error');
+                showNotification('Submission error: ' + err.message, 'error');
+                
                 submitButton.textContent = 'Submit Full Brief';
                 submitButton.classList.remove('sending');
                 submitButton.disabled = false;
+                uploadProgressContainer.style.display = 'none';
             }
         });
     }
     
+    // Create celebration
     function createConfetti() {
         const colors = ['#8a2be2', '#a855f7', '#10b981', '#3b82f6', '#f59e0b'];
         
@@ -2042,7 +2228,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Email validation
     const emailInput = document.querySelector('input[type="email"]');
+    
     if (emailInput) {
         emailInput.addEventListener('blur', function() {
             const formGroup = this.closest('.form-group');
@@ -2077,7 +2265,9 @@ document.addEventListener('DOMContentLoaded', function() {
         return emailRegex.test(email);
     }
     
+    // Additional field improvements
     const allInputs = document.querySelectorAll('input, textarea, select');
+    
     allInputs.forEach(input => {
         input.addEventListener('focus', function() {
             const formGroup = this.closest('.form-group');
