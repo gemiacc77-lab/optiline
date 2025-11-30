@@ -1553,3 +1553,26 @@ p, h1, h2, h3, h4, label, .field-hint, .form-section-title, .success-message p, 
     overflow-wrap: break-word !important;
     line-height: 1.6 !important;
 }
+.logo-grid i,
+.payment-icons i,
+.filter-btn {
+    display: inline-flex !important; 
+    align-items: center !important;  
+    justify-content: center !important; 
+    line-height: 1 !important; 
+    vertical-align: middle !important;
+}
+.filter-buttons {
+    align-items: center !important; 
+}
+.payment-icons i {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; 
+    cursor: pointer;
+}
+
+.payment-icons i:hover {
+    transform: scale(1.2) translateY(-5px) !important;
+    color: var(--text-light) !important; 
+    filter: drop-shadow(0 0 8px var(--accent-purple)); 
+}
