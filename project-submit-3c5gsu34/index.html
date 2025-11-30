@@ -928,6 +928,69 @@ body {
   transition-duration: 0.3s;
 }
 
+/* أنماط جديدة لرفع ZIP */
+.upload-progress-container {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(138, 43, 226, 0.3);
+  display: none;
+}
+
+.upload-progress-bar {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.upload-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-light));
+  width: 0%;
+  transition: width 0.3s ease;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+.upload-progress-text {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.file-preview-item.zip-file {
+  background: rgba(138, 43, 226, 0.1);
+  border: 2px solid var(--accent-purple);
+}
+
+.file-preview-item.zip-file .file-icon {
+  color: var(--accent-light);
+  animation: pulse-glow 2s infinite;
+}
+
+.file-size-info {
+  font-size: 0.8rem;
+  color: var(--text-gray);
+  margin-top: 5px;
+}
+
 @media (max-width: 768px) {
   .container {
     width: 95%;
@@ -1471,16 +1534,25 @@ body {
 <div class="validation-message error"></div>
 </div>
 <div class="form-group">
-<label>Upload Your Assets *</label>
+<label>Upload Your Assets (ZIP File Only) *</label>
 <div class="file-upload-wrapper" id="fileUploadWrapper">
-<input type="file" id="fileUpload" name="attachments" multiple required>
+<input type="file" id="fileUpload" name="attachments" accept=".zip" required>
 <p style="margin-top: 10px; font-size: 0.95rem; color: var(--text-gray);">
-<i class="fas fa-cloud-upload-alt" style="font-size: 2.5rem; margin-bottom: 15px; display:block;"></i>
-<strong>Click or drag files to upload</strong><br>
-(Supported: Images, PDF, Zip, AI, PSD & All Standard Formats)
+<i class="fas fa-file-archive" style="font-size: 2.5rem; margin-bottom: 15px; display:block;"></i>
+<strong>Click or drag ZIP file to upload</strong><br>
+(Maximum size: 500MB - ZIP format only)<br>
+<span style="font-size: 0.85rem; color: var(--accent-light);">
+Include all your brand assets, references, and materials in one ZIP file
+</span>
 </p>
 </div>
 <div class="file-upload-preview" id="filePreview"></div>
+<div class="upload-progress-container" id="uploadProgressContainer">
+<div class="upload-progress-bar">
+<div class="upload-progress-fill" id="uploadProgressFill"></div>
+</div>
+<div class="upload-progress-text" id="uploadProgressText">0%</div>
+</div>
 <div class="validation-message error" id="fileValidationMessage"></div>
 </div>
 <div class="cf-turnstile" data-sitekey="0x4AAAAAACC2KEoKqYqTKDGu" data-callback="javascriptCallback"></div>
@@ -1568,14 +1640,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitButton = document.querySelector('.btn-submit');
     const form = document.getElementById('projectBriefForm');
     const formLoading = document.getElementById('formLoading');
-    let currentSection = 0;
+    const uploadProgressContainer = document.getElementById('uploadProgressContainer');
+    const uploadProgressFill = document.getElementById('uploadProgressFill');
+    const uploadProgressText = document.getElementById('uploadProgressText');
     
+    let currentSection = 0;
+    const fileDataTransfer = new DataTransfer(); 
+
     setTimeout(() => {
         document.querySelector('.project-brief-form').classList.add('loaded');
     }, 500);
     
-    const fileDataTransfer = new DataTransfer(); 
-
     updateFormDisplay();
 
     nextButtons.forEach(button => {
@@ -1647,115 +1722,115 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function handleFiles(files) {
-        if (files.length > 0) {
-            fileUploadWrapper.style.borderColor = '';
-            if (fileValidationMessage) {
-                fileValidationMessage.classList.remove('show');
-            }
+        if (files.length === 0) return;
+
+        if (files.length > 1) {
+            showNotification('Please upload only one ZIP file.', 'error');
+            return;
         }
 
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            let isDuplicate = false;
-            for(let j = 0; j < fileDataTransfer.files.length; j++) {
-                if(fileDataTransfer.files[j].name === file.name && fileDataTransfer.files[j].size === file.size) {
-                    isDuplicate = true;
-                    showNotification(`File "${file.name}" is already added.`, 'info');
-                    break;
-                }
-            }
-            if(!isDuplicate) {
-                fileDataTransfer.items.add(file);
-                addFilePreviewItem(file, fileDataTransfer.files.length - 1);
-            }
+        const file = files[0];
+        
+        // التحقق من نوع الملف
+        if (!file.name.toLowerCase().endsWith('.zip')) {
+            showNotification('Only ZIP files are allowed. Please select a ZIP file.', 'error');
+            return;
+        }
+        
+        // التحقق من حجم الملف
+        const maxSize = 500 * 1024 * 1024; // 500MB
+        if (file.size > maxSize) {
+            showNotification(`File size (${(file.size / (1024*1024)).toFixed(2)}MB) exceeds maximum allowed size of 500MB.`, 'error');
+            return;
         }
 
+        fileDataTransfer.items.clear();
+        fileDataTransfer.items.add(file);
+        
         try {
             fileUpload.files = fileDataTransfer.files;
         } catch(e) {
-            console.log("Could not sync input files (expected on iOS):", e);
+            console.log("Could not sync input files:", e);
         }
+        
+        // إظهار معاينة الملف الواحد
+        showFilePreview(file);
+        uploadProgressContainer.style.display = 'none';
     }
 
-    if (fileUpload) {
-        fileUpload.addEventListener('change', function() {
-            handleFiles(this.files);
-        });
-    }
-
-    function addFilePreviewItem(file, index) {
+    function showFilePreview(file) {
+        filePreview.innerHTML = '';
+        
         const fileItem = document.createElement('div');
-        fileItem.className = 'file-preview-item';
-        fileItem.id = `file-item-${index}`;
-        let iconClass = 'fa-file';
-        if(file.type.includes('image')) iconClass = 'fa-file-image';
-        else if(file.type.includes('pdf')) iconClass = 'fa-file-pdf';
-        else if(file.type.includes('zip') || file.type.includes('compressed')) iconClass = 'fa-file-archive';
-
+        fileItem.className = 'file-preview-item zip-file';
+        fileItem.id = 'zip-file-item';
+        
+        const fileSizeMB = (file.size / (1024*1024)).toFixed(2);
+        
         fileItem.innerHTML = `
-            <div class="file-icon"><i class="fas ${iconClass}"></i></div>
+            <div class="file-icon"><i class="fas fa-file-archive"></i></div>
             <div class="file-details">
                 <span class="file-name" title="${file.name}">${file.name}</span>
+                <div class="file-size-info">Size: ${fileSizeMB} MB</div>
                 <div class="file-progress-container">
-                    <div class="file-progress-bar" id="progress-bar-${index}"></div>
+                    <div class="file-progress-bar" id="zip-progress-bar"></div>
                 </div>
             </div>
             <div class="file-status-icon">
-                <i class="fas fa-check-circle checkmark" id="checkmark-${index}"></i>
+                <i class="fas fa-check-circle checkmark" id="zip-checkmark"></i>
             </div>
-            <button type="button" class="btn-remove-file" onclick="removeFileItem(${index})" aria-label="Remove File">
+            <button type="button" class="btn-remove-file" onclick="removeZipFile()" aria-label="Remove File">
                 <i class="fas fa-times"></i>
             </button>
         `;
+        
         filePreview.appendChild(fileItem);
-        simulateUpload(index);
+        simulateZipUpload();
     }
 
-    window.removeFileItem = function(indexToRemove) {
-        const elementToRemove = document.getElementById(`file-item-${indexToRemove}`);
-        if (elementToRemove) {
-            gsap.to(elementToRemove, {
+    window.removeZipFile = function() {
+        const zipFileItem = document.getElementById('zip-file-item');
+        if (zipFileItem) {
+            gsap.to(zipFileItem, {
                 opacity: 0,
                 x: -50,
                 duration: 0.3,
                 onComplete: () => {
-                    elementToRemove.remove();
-                    const newDt = new DataTransfer();
-                    for (let i = 0; i < fileDataTransfer.files.length; i++) {
-                        if (i !== indexToRemove) {
-                            newDt.items.add(fileDataTransfer.files[i]);
-                        }
-                    }
+                    zipFileItem.remove();
                     fileDataTransfer.items.clear();
-                    for (let i = 0; i < newDt.files.length; i++) {
-                        fileDataTransfer.items.add(newDt.files[i]);
-                    }
-
                     try {
-                        document.getElementById('fileUpload').files = fileDataTransfer.files;
+                        fileUpload.files = fileDataTransfer.files;
                     } catch(e) {}
+                    uploadProgressContainer.style.display = 'none';
                 }
             });
         }
     };
 
-    function simulateUpload(index) {
-        const progressBar = document.getElementById(`progress-bar-${index}`);
-        const checkmark = document.getElementById(`checkmark-${index}`);
-        const fileItem = document.getElementById(`file-item-${index}`);
+    function simulateZipUpload() {
+        const progressBar = document.getElementById('zip-progress-bar');
+        const checkmark = document.getElementById('zip-checkmark');
+        const fileItem = document.getElementById('zip-file-item');
         
         let width = 0;
-        const speed = Math.random() * 30 + 20;
+        const speed = Math.random() * 20 + 10;
+        
         const interval = setInterval(() => {
             if (width >= 100) {
                 clearInterval(interval);
                 if(checkmark) checkmark.classList.add('visible');
                 if(fileItem) fileItem.classList.add('uploaded');
             } else {
-                width += 5;
+                width += 2;
                 if(progressBar) progressBar.style.width = width + '%';
             }
         }, speed);
+    }
+
+    if (fileUpload) {
+        fileUpload.addEventListener('change', function() {
+            handleFiles(this.files);
+        });
     }
 
     function navigateToSection(sectionIndex) {
@@ -1853,7 +1928,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentSection === 4 && fileDataTransfer.files.length === 0) {
             isValid = false;
             if (fileValidationMessage) {
-                fileValidationMessage.textContent = 'Please upload at least one file';
+                fileValidationMessage.textContent = 'Please upload a ZIP file';
                 fileValidationMessage.className = 'validation-message error show';
             }
             fileUploadWrapper.style.borderColor = 'var(--error-color)';
@@ -1869,6 +1944,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (fileValidationMessage) {
                 fileValidationMessage.classList.remove('show');
             }
+            fileUploadWrapper.style.borderColor = '';
         }
         
         if (!isValid && firstInvalidField) {
@@ -1947,17 +2023,73 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 4000);
     }
 
-    const fileToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                const base64String = reader.result.split(',')[1];
-                resolve({ name: file.name, mimeType: file.type, data: base64String });
-            };
-            reader.onerror = error => reject(error);
+    // دالة الرفع الفعلية مع شريط التقدم الحقيقي
+    async function uploadSingleFile(file) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                // 1. الحصول على رابط الرفع
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                    body: JSON.stringify({
+                        action: "getUploadUrl",
+                        fileName: file.name,
+                        mimeType: file.type,
+                        fileSize: file.size
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.status !== "success") {
+                    throw new Error("Failed to get upload URL");
+                }
+                
+                const uploadUrl = data.url;
+
+                // 2. إعداد طلب الرفع مع تتبع التقدم
+                const xhr = new XMLHttpRequest();
+                
+                xhr.upload.addEventListener('progress', (e) => {
+                    if (e.lengthComputable) {
+                        const percentComplete = (e.loaded / e.total) * 100;
+                        updateUploadProgress(percentComplete);
+                    }
+                });
+
+                xhr.addEventListener('load', () => {
+                    if (xhr.status === 200) {
+                        updateUploadProgress(100);
+                        resolve(`Uploaded: ${file.name}`);
+                    } else {
+                        reject(new Error(`Upload failed with status: ${xhr.status}`));
+                    }
+                });
+
+                xhr.addEventListener('error', () => {
+                    reject(new Error('Upload failed due to network error'));
+                });
+
+                xhr.open('PUT', uploadUrl);
+                xhr.setRequestHeader('Content-Type', file.type);
+                xhr.send(file);
+
+            } catch (error) {
+                console.error('Upload error for file:', file.name, error);
+                reject(error);
+            }
         });
-    };
+    }
+
+    function updateUploadProgress(percent) {
+        uploadProgressFill.style.width = percent + '%';
+        uploadProgressText.textContent = Math.round(percent) + '%';
+        
+        if (percent === 100) {
+            setTimeout(() => {
+                uploadProgressContainer.style.display = 'none';
+            }, 1000);
+        }
+    }
 
     window.javascriptCallback = function(token) {
         console.log('Turnstile verified');
@@ -2026,85 +2158,47 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const submitButton = document.getElementById('submitBriefButton');
-        submitButton.textContent = 'Uploading Files...';
+        submitButton.textContent = 'Uploading ZIP File...';
         submitButton.classList.add('sending');
         submitButton.disabled = true;
 
-        // دالة جديدة لرفع ملف واحد باستخدام الـ API المتقدم
-        async function uploadSingleFile(file) {
-            try {
-                // 1. نطلب من السكربت رابط رفع خاص لهذا الملف
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { "Content-Type": "text/plain;charset=utf-8" },
-                    body: JSON.stringify({
-                        action: "getUploadUrl",
-                        fileName: file.name,
-                        mimeType: file.type,
-                        fileSize: file.size
-                    })
-                });
-                
-                const data = await response.json();
-                if (data.status !== "success") throw new Error("Failed to get upload URL");
-                
-                const uploadUrl = data.url;
-
-                // 2. نرفع الملف مباشرة إلى رابط جوجل (PUT Request)
-                const uploadResponse = await fetch(uploadUrl, {
-                    method: "PUT",
-                    body: file,
-                    headers: { "Content-Type": file.type }
-                });
-
-                if (!uploadResponse.ok) {
-                    throw new Error(`Upload failed with status: ${uploadResponse.status}`);
-                }
-
-                // إرجاع اسم الملف للتأكيد
-                return `Uploaded: ${file.name}`; 
-            } catch (error) {
-                console.error('Upload error for file:', file.name, error);
-                throw error;
-            }
-        }
-
         try {
-            // 1. رفع الملفات أولاً
+            // 1. رفع الملف ZIP
             const files = fileDataTransfer.files; 
             let uploadedLinksLog = "";
 
             if (files.length > 0) {
-                showNotification(`Starting upload of ${files.length} files...`, 'info');
+                uploadProgressContainer.style.display = 'block';
+                updateUploadProgress(0);
                 
-                for (let i = 0; i < files.length; i++) {
-                    // تحديث نص الزر ليعرف العميل التقدم
-                    submitButton.textContent = `Uploading file ${i+1} of ${files.length}...`;
+                showNotification(`Starting upload of ZIP file...`, 'info');
+                
+                const file = files[0];
+                
+                try {
+                    const resultMsg = await uploadSingleFile(file);
+                    uploadedLinksLog += resultMsg + "\n";
                     
-                    try {
-                        const resultMsg = await uploadSingleFile(files[i]);
-                        uploadedLinksLog += resultMsg + "\n";
-                        
-                        // تحديث واجهة المستخدم لتظهر تقدم الرفع
-                        const fileItem = document.getElementById(`file-item-${i}`);
-                        if (fileItem) {
-                            fileItem.style.background = 'rgba(168, 85, 247, 0.1)';
-                        }
-                        
-                    } catch (uploadErr) {
-                        console.error(`Failed to upload ${files[i].name}:`, uploadErr);
-                        uploadedLinksLog += `Failed: ${files[i].name} - ${uploadErr.message}\n`;
-                        
-                        // إظهار خطأ في الواجهة للملف الفاشل
-                        const fileItem = document.getElementById(`file-item-${i}`);
-                        if (fileItem) {
-                            fileItem.style.background = 'rgba(239, 68, 68, 0.1)';
-                            fileItem.style.borderColor = 'var(--error-color)';
-                        }
+                    // تحديث واجهة المستخدم لتظهر اكتمال الرفع
+                    const fileItem = document.getElementById('zip-file-item');
+                    if (fileItem) {
+                        fileItem.style.background = 'rgba(168, 85, 247, 0.1)';
                     }
+                    
+                } catch (uploadErr) {
+                    console.error(`Failed to upload ${file.name}:`, uploadErr);
+                    uploadedLinksLog += `Failed: ${file.name} - ${uploadErr.message}\n`;
+                    
+                    // إظهار خطأ في الواجهة للملف الفاشل
+                    const fileItem = document.getElementById('zip-file-item');
+                    if (fileItem) {
+                        fileItem.style.background = 'rgba(239, 68, 68, 0.1)';
+                        fileItem.style.borderColor = 'var(--error-color)';
+                    }
+                    throw uploadErr;
                 }
                 
-                showNotification(`File upload completed!`, 'success');
+                showNotification(`ZIP file upload completed!`, 'success');
             } else {
                 uploadedLinksLog = "No files selected.";
             }
@@ -2145,6 +2239,7 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.textContent = 'Submit Premium Brief';
             submitButton.classList.remove('sending');
             submitButton.disabled = false;
+            uploadProgressContainer.style.display = 'none';
         }
     });
 }
