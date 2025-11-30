@@ -306,3 +306,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+document.addEventListener("DOMContentLoaded", function() {
+    const footerParagraph = document.querySelector('.footer-about p');
+    
+    if (footerParagraph) {
+        footerParagraph.textContent = "Elevated growth assets tailored for clarity and strength";
+    }
+});
