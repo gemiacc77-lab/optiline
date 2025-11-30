@@ -1527,6 +1527,8 @@ main, footer {
     justify-content: center;
     opacity: 0.7;
 }
+/* ... (باقي أكواد الموقع في الأعلى كما هي) ... */
+
 #scrollTopBtn:hover {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
@@ -1542,7 +1544,7 @@ main, footer {
 
 .custom-cursor {
   pointer-events: none;
-} /* <--- تم إضافة قوس الإغلاق هنا */
+} 
 
 /* --- Global Text Fix for Mobile (No Hyphens) --- */
 p, h1, h2, h3, h4, label, .field-hint, .form-section-title, .success-message p, .success-message h2, .subtle-glow {
@@ -1553,26 +1555,60 @@ p, h1, h2, h3, h4, label, .field-hint, .form-section-title, .success-message p, 
     overflow-wrap: break-word !important;
     line-height: 1.6 !important;
 }
-.logo-grid i,
-.payment-icons i,
+
+/* =========================================
+   FINAL FIXES: Alignment & Animations (Corrected)
+   ========================================= */
+
+/* 1. إصلاح أزرار الفلتر (Filter Buttons) */
+.filter-buttons {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 15px !important;
+}
+
 .filter-btn {
-    display: inline-flex !important; 
-    align-items: center !important;  
-    justify-content: center !important; 
-    line-height: 1 !important; 
+    display: inline-flex !important; /* لضمان توسط النص */
+    align-items: center !important;
+    justify-content: center !important;
+    height: 45px !important; /* ارتفاع ثابت لجميع الأزرار */
+    line-height: normal !important; /* إعادة النص لوضعه الطبيعي */
+    padding: 0 25px !important;
     vertical-align: middle !important;
 }
-.filter-buttons {
-    align-items: center !important; 
+
+/* 2. إصلاح الأيقونات (Payment & Logos) */
+/* نستخدم inline-block لأنه الأنسب لأيقونات FontAwesome ويسمح بالأنميشن */
+.logo-grid i,
+.payment-icons i {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    line-height: 1 !important; /* يمنع الإزاحة العمودية للأيقونات */
+    font-style: normal !important;
 }
+
+/* ضمان استقامة الحاويات */
+.payment-icons,
+.logo-grid {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+}
+
+/* 3. أنميشن أيقونات الدفع */
 .payment-icons i {
     position: relative;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; 
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
     cursor: pointer;
+    /* تأكد من أن اللون الافتراضي مرئي */
+    color: var(--text-gray); 
 }
 
 .payment-icons i:hover {
     transform: scale(1.2) translateY(-5px) !important;
-    color: var(--text-light) !important; 
-    filter: drop-shadow(0 0 8px var(--accent-purple)); 
+    color: var(--text-light) !important;
+    filter: drop-shadow(0 0 8px var(--accent-purple));
 }
