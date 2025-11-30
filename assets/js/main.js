@@ -313,3 +313,16 @@ document.addEventListener("DOMContentLoaded", function() {
         footerParagraph.textContent = "Elevated growth assets tailored for clarity and strength";
     }
 });
+});
+/* =========================================
+   Unified Copyright Text
+   ========================================= */
+document.addEventListener("DOMContentLoaded", function() {
+    // استهداف الفقرة الموجودة داخل عنصر الحقوق
+    const copyrightParagraph = document.querySelector('.copyright p');
+    
+    // التأكد من وجود العنصر قبل محاولة تغيير النص
+    if (copyrightParagraph) {
+        copyrightParagraph.textContent = "© 2025 OPTILINE. All Rights Reserved.";
+    }
+});
